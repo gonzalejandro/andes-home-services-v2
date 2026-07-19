@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { createLeadInJobber, isJobberConfigured, type ContactLeadInput } from '@/lib/jobber';
+import { verifyTurnstileToken } from '@/lib/turnstile';
 
 export const prerender = false;
 
@@ -47,6 +48,19 @@ export const POST: APIRoute = async ({ request }) => {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
       });
+    }
+
+    const turnstileToken = String((body as Record<string, unknown>).turnstileToken ?? '').trim();
+    const remoteip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
+    const humanVerified = await verifyTurnstileToken(turnstileToken, remoteip);
+    if (!humanVerified) {
+      return new Response(
+        JSON.stringify({ error: 'Verification failed. Please refresh the page and try again.' }),
+        {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        },
+      );
     }
 
     const lead = parseBody(body);

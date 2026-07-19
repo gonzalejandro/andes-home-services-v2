@@ -27,3 +27,6 @@ pnpm-debug.log*
 
 # astro
 .astro/
+
+# jobber token (rotated refresh token)
+src/data/jobber-token.json

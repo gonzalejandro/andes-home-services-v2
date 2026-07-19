@@ -1,6 +1,29 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
+
+const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined;
+const TURNSTILE_SCRIPT_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+
+type TurnstileApi = {
+  render: (
+    el: HTMLElement,
+    opts: {
+      sitekey: string;
+      callback: (token: string) => void;
+      'expired-callback'?: () => void;
+      'error-callback'?: () => void;
+    },
+  ) => string;
+  reset: (widgetId?: string) => void;
+  remove: (widgetId: string) => void;
+};
+
+declare global {
+  interface Window {
+    turnstile?: TurnstileApi;
+  }
+}
 
 const initialForm = {
   firstName: '',
@@ -19,9 +42,67 @@ export default function ContactForm() {
   const [form, setForm] = useState(initialForm);
   const [state, setState] = useState<FormState>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState('');
+
+  const widgetRef = useRef<HTMLDivElement>(null);
+  const widgetIdRef = useRef<string | null>(null);
+
+  // Load the Turnstile script (only when a site key is configured) and render
+  // the widget. Scoped to this component, so it never loads on other pages.
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY) return;
+    let cancelled = false;
+
+    function renderWidget() {
+      if (cancelled || widgetIdRef.current !== null) return;
+      if (!widgetRef.current || !window.turnstile) return;
+      widgetIdRef.current = window.turnstile.render(widgetRef.current, {
+        sitekey: TURNSTILE_SITE_KEY as string,
+        callback: (token) => setTurnstileToken(token),
+        'expired-callback': () => setTurnstileToken(''),
+        'error-callback': () => setTurnstileToken(''),
+      });
+    }
+
+    if (window.turnstile) {
+      renderWidget();
+    } else {
+      const existing = document.querySelector<HTMLScriptElement>(
+        `script[src="${TURNSTILE_SCRIPT_SRC}"]`,
+      );
+      if (existing) {
+        existing.addEventListener('load', renderWidget);
+      } else {
+        const script = document.createElement('script');
+        script.src = TURNSTILE_SCRIPT_SRC;
+        script.async = true;
+        script.defer = true;
+        script.addEventListener('load', renderWidget);
+        document.head.appendChild(script);
+      }
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  function resetTurnstile() {
+    setTurnstileToken('');
+    if (widgetIdRef.current !== null && window.turnstile) {
+      window.turnstile.reset(widgetIdRef.current);
+    }
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      setState('error');
+      setErrorMessage('Please complete the verification before submitting.');
+      return;
+    }
+
     setState('submitting');
     setErrorMessage('');
 
@@ -29,7 +110,7 @@ export default function ContactForm() {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, turnstileToken }),
       });
 
       const data = (await response.json()) as { error?: string; message?: string };
@@ -39,8 +120,10 @@ export default function ContactForm() {
       }
 
       setForm(initialForm);
+      resetTurnstile();
       setState('success');
     } catch (error) {
+      resetTurnstile();
       setState('error');
       setErrorMessage(error instanceof Error ? error.message : 'Submission failed.');
     }
@@ -192,6 +275,8 @@ export default function ContactForm() {
           onChange={(e) => updateField('website', e.target.value)}
         />
       </label>
+
+      {TURNSTILE_SITE_KEY && <div ref={widgetRef} className="min-h-[65px]" />}
 
       {state === 'error' && (
         <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700" role="alert">
