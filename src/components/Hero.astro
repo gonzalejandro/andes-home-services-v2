@@ -7,12 +7,14 @@ interface Props {
   title: string;
   subtitle?: string;
   image?: ImageMetadata;
+  ctaHref?: string;
 }
 
 const {
   title,
   subtitle,
   image = backgroundDefault,
+  ctaHref = '/contact',
 } = Astro.props;
 
 const optimizedBg = await getImage({ src: image, format: 'webp' });
@@ -30,7 +32,7 @@ const optimizedBg = await getImage({ src: image, format: 'webp' });
       <p class="mx-auto mt-4 max-w-2xl text-lg text-white/90 md:text-xl">{subtitle}</p>
     )}
     <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-      <a href="/contact" class="btn-primary">Get a Free Estimate</a>
+      <a href={ctaHref} class="btn-primary">Get a Free Estimate</a>
       <a
         href="/services"
         class="btn-secondary border-white text-white hover:bg-white hover:text-brand-800"

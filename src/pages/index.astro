@@ -4,6 +4,7 @@ import stumpGrindingImg from '../assets/stump-grinding.webp';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
+import ContactForm from '../components/ContactForm';
 import ReviewsBlock from '../components/ReviewsBlock.astro';
 import { site } from '../config/site';
 import { serviceAreas } from '../data/serviceAreas';
@@ -15,6 +16,7 @@ const benefits = ['Free quotes', 'Fully insured', 'Affordable pricing'];
   <Hero
     title={site.name}
     subtitle="Professional stump grinding across Metro Detroit — quality workmanship you can trust."
+    ctaHref="#get-quote"
   />
 
   <section class="section-padding bg-white">
@@ -62,7 +64,7 @@ const benefits = ['Free quotes', 'Fully insured', 'Affordable pricing'];
     </div>
   </section>
 
-  <section class="bg-white">
+  <section class="border-t border-brand-100 bg-brand-50">
     <div class="container-page section-padding grid items-center gap-10 lg:grid-cols-2">
       <Image
         src={stumpGrindingImg}
@@ -105,21 +107,42 @@ const benefits = ['Free quotes', 'Fully insured', 'Affordable pricing'];
             ))
           }
         </ul>
-        <a href="/contact" class="btn-primary mt-8">Get a Free Estimate</a>
+        <a href="#get-quote" class="btn-primary mt-8">Get a Free Estimate</a>
       </div>
     </div>
 
-    <div class="bg-brand-800 py-10 text-center text-white">
+    <div id="get-quote" class="scroll-mt-24 bg-brand-800 py-10 text-center text-white">
+      <p class="mb-2 text-sm font-medium uppercase tracking-widest text-brand-100">
+        Request your free quote
+      </p>
       <a
         href={`tel:${site.phoneTel}`}
         class="inline-block text-2xl font-bold tracking-wide transition hover:text-brand-100 md:text-3xl"
       >
         CALL OR TEXT {site.phone}
       </a>
+      <p class="mt-3 text-base text-white/80">
+        …or fill out the form below and we'll get back to you.
+      </p>
     </div>
   </section>
 
-  <section class="section-padding">
+  <section class="section-padding bg-white">
+    <div class="container-page">
+      <SectionHeading
+        title="Or Request a Free Estimate Online"
+        subtitle="Prefer to write? Tell us about your project below and we'll get back to you with a quote."
+      />
+      <div class="mx-auto mt-10 max-w-2xl">
+        <ContactForm client:load />
+        <p class="mt-4 text-center text-sm text-brand-900/60">
+          Outside Macomb, Oakland, or Wayne County? We can still help — a travel fee may apply.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-padding border-t border-brand-100 bg-brand-50">
     <div class="container-page">
       <ReviewsBlock />
     </div>
