@@ -126,8 +126,13 @@ function ReviewCard({ review }: { review: GoogleReview }) {
   );
 }
 
+const AUTO_SCROLL_INTERVAL_MS = 4000;
+const TOUCH_RESUME_DELAY_MS = 6000;
+
 function ReviewsCarousel({ reviews }: { reviews: GoogleReview[] }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const pausedRef = useRef(false);
+  const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
@@ -137,6 +142,12 @@ function ReviewsCarousel({ reviews }: { reviews: GoogleReview[] }) {
 
     setCanScrollLeft(el.scrollLeft > 4);
     setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  }, []);
+
+  const stepAmount = useCallback((el: HTMLDivElement) => {
+    const card = el.querySelector('article');
+    const gap = 24;
+    return card ? card.getBoundingClientRect().width + gap : el.clientWidth * 0.9;
   }, []);
 
   useEffect(() => {
@@ -154,22 +165,69 @@ function ReviewsCarousel({ reviews }: { reviews: GoogleReview[] }) {
     };
   }, [reviews, updateScrollState]);
 
+  // Auto-advance one card at a time; loop back to the start at the end.
+  // Disabled for reduced-motion users and paused on hover/focus/touch/hidden tab.
+  useEffect(() => {
+    if (reviews.length <= 1) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const interval = setInterval(() => {
+      const el = scrollerRef.current;
+      if (!el || pausedRef.current || document.hidden) return;
+
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4;
+      el.scrollTo({
+        left: atEnd ? 0 : el.scrollLeft + stepAmount(el),
+        behavior: 'smooth',
+      });
+    }, AUTO_SCROLL_INTERVAL_MS);
+
+    return () => clearInterval(interval);
+  }, [reviews, stepAmount]);
+
+  useEffect(() => {
+    return () => {
+      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+    };
+  }, []);
+
+  const pause = useCallback(() => {
+    if (resumeTimeoutRef.current) {
+      clearTimeout(resumeTimeoutRef.current);
+      resumeTimeoutRef.current = null;
+    }
+    pausedRef.current = true;
+  }, []);
+
+  const resume = useCallback(() => {
+    pausedRef.current = false;
+  }, []);
+
+  // Touch devices have no hover; resume after a quiet period instead.
+  const pauseThenResume = useCallback(() => {
+    pause();
+    resumeTimeoutRef.current = setTimeout(resume, TOUCH_RESUME_DELAY_MS);
+  }, [pause, resume]);
+
   function scroll(direction: 'left' | 'right') {
     const el = scrollerRef.current;
     if (!el) return;
 
-    const card = el.querySelector('article');
-    const gap = 24;
-    const amount = card ? card.getBoundingClientRect().width + gap : el.clientWidth * 0.9;
-
     el.scrollBy({
-      left: direction === 'left' ? -amount : amount,
+      left: direction === 'left' ? -stepAmount(el) : stepAmount(el),
       behavior: 'smooth',
     });
   }
 
   return (
-    <div className="flex items-center gap-3 sm:gap-4">
+    <div
+      className="flex items-center gap-3 sm:gap-4"
+      onMouseEnter={pause}
+      onMouseLeave={resume}
+      onFocusCapture={pause}
+      onBlurCapture={resume}
+      onTouchStart={pauseThenResume}
+    >
       <button
         type="button"
         onClick={() => scroll('left')}
