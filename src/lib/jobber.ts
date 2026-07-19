@@ -6,10 +6,10 @@ export type ContactLeadInput = {
   lastName: string;
   email: string;
   phone: string;
-  address?: string;
-  city?: string;
-  state?: string;
-  postalCode?: string;
+  address: string;
+  city: string;
+  state: string;
+  postalCode: string;
   message: string;
 };
 
@@ -30,7 +30,7 @@ function getJobberConfig() {
   const clientId = import.meta.env.JOBBER_CLIENT_ID;
   const clientSecret = import.meta.env.JOBBER_CLIENT_SECRET;
   const refreshToken = import.meta.env.JOBBER_REFRESH_TOKEN;
-  const graphqlVersion = import.meta.env.JOBBER_GRAPHQL_VERSION ?? '2025-01-20';
+  const graphqlVersion = import.meta.env.JOBBER_GRAPHQL_VERSION ?? '2026-05-12';
 
   if (!clientId || !clientSecret || !refreshToken) {
     return null;
@@ -124,6 +124,9 @@ const CLIENT_CREATE_MUTATION = `
     clientCreate(input: $input) {
       client {
         id
+        properties {
+          id
+        }
       }
       userErrors {
         message
@@ -149,7 +152,10 @@ const REQUEST_CREATE_MUTATION = `
 
 type ClientCreateResult = {
   clientCreate: {
-    client: { id: string } | null;
+    client: {
+      id: string;
+      properties: Array<{ id: string }>;
+    } | null;
     userErrors: Array<{ message: string; path: string[] }>;
   };
 };
@@ -171,16 +177,24 @@ export async function createLeadInJobber(lead: ContactLeadInput): Promise<{
       lastName: lead.lastName,
       emails: [{ address: lead.email, primary: true, description: 'MAIN' }],
       phones: [{ number: lead.phone, primary: true, description: 'MAIN' }],
-      ...(lead.address || lead.city || lead.state || lead.postalCode
-        ? {
-            billingAddress: {
-              street1: lead.address || undefined,
-              city: lead.city || undefined,
-              province: lead.state || undefined,
-              postalCode: lead.postalCode || undefined,
-            },
-          }
-        : {}),
+      billingAddress: {
+        street1: lead.address,
+        city: lead.city,
+        province: lead.state,
+        postalCode: lead.postalCode,
+        country: 'US',
+      },
+      properties: [
+        {
+          address: {
+            street1: lead.address,
+            city: lead.city,
+            province: lead.state,
+            postalCode: lead.postalCode,
+            country: 'US',
+          },
+        },
+      ],
     },
   });
 
@@ -189,16 +203,35 @@ export async function createLeadInJobber(lead: ContactLeadInput): Promise<{
     throw new Error(clientErrors.map((error) => error.message).join('; '));
   }
 
-  const clientId = clientResult.clientCreate.client?.id;
-  if (!clientId) {
+  const client = clientResult.clientCreate.client;
+  if (!client?.id) {
     throw new Error('Jobber did not return a client ID.');
   }
+
+  const clientId = client.id;
+  const propertyId = client.properties[0]?.id;
 
   const requestResult = await jobberRequest<RequestCreateResult>(REQUEST_CREATE_MUTATION, {
     input: {
       clientId,
+      ...(propertyId ? { propertyId } : {}),
       title: 'Website quote request',
-      requestDetails: lead.message,
+      requestDetails: {
+        form: {
+          sections: [
+            {
+              label: 'Website Submission',
+              items: [
+                { label: 'Message', answerText: lead.message },
+                { label: 'Address', answerText: lead.address },
+                { label: 'City', answerText: lead.city },
+                { label: 'State', answerText: lead.state },
+                { label: 'Postal Code', answerText: lead.postalCode },
+              ],
+            },
+          ],
+        },
+      },
     },
   });
 

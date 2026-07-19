@@ -9,7 +9,7 @@ import sitemap from '@astrojs/sitemap';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  site: 'https://www.andeshomeservices.com',
+  site: 'https://www.andesstumpgrinding.com',
   output: 'static',
   adapter: vercel(),
   integrations: [tailwind(), react(), sitemap()],

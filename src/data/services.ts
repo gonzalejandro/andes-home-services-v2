@@ -15,7 +15,7 @@ export const services = [
       'Residential and commercial properties',
       'Stumps of all sizes',
       'Wood chips left on-site or removed',
-      'Deep grinding available for fence and foundation prep',
+      'Grinding up to 15 inches deep for fence and foundation prep',
       'Fully insured crews',
     ],
   },

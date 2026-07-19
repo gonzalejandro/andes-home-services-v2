@@ -3,7 +3,7 @@ export const site = {
   title: 'Andes Stump Grinding | Professional Stump Grinding Services',
   description:
     'Professional stump grinding services in Metro Detroit. Serving Macomb, Oakland, and Wayne counties from Ferndale.',
-  url: 'https://www.andeshomeservices.com',
+  url: 'https://www.andesstumpgrinding.com',
   email: 'info@andeshomeservices.com',
   phone: '(248) 509-5011',
   phoneTel: '+12485095011',

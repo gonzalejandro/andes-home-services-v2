@@ -55,7 +55,7 @@ export default function ContactForm() {
       <div className="card border-green-200 bg-green-50 text-green-900">
         <h3 className="text-xl font-bold">Request received</h3>
         <p className="mt-2">
-          Thanks for reaching out. We will get back to you shortly with your free estimate.
+          Thanks for reaching out! One of our team members will get back to you shortly.
         </p>
         <button
           type="button"
@@ -121,8 +121,9 @@ export default function ContactForm() {
       </div>
 
       <label className="block text-sm font-medium text-brand-800">
-        Street address
+        Street address *
         <input
+          required
           type="text"
           name="address"
           value={form.address}
@@ -133,8 +134,9 @@ export default function ContactForm() {
 
       <div className="grid gap-4 sm:grid-cols-3">
         <label className="block text-sm font-medium text-brand-800">
-          City
+          City *
           <input
+            required
             type="text"
             name="city"
             value={form.city}
@@ -143,8 +145,9 @@ export default function ContactForm() {
           />
         </label>
         <label className="block text-sm font-medium text-brand-800">
-          State
+          State *
           <input
+            required
             type="text"
             name="state"
             value={form.state}
@@ -153,8 +156,9 @@ export default function ContactForm() {
           />
         </label>
         <label className="block text-sm font-medium text-brand-800">
-          ZIP
+          ZIP *
           <input
+            required
             type="text"
             name="postalCode"
             value={form.postalCode}

@@ -15,9 +15,13 @@ function parseBody(body: unknown): ContactLeadInput | null {
   const lastName = String(data.lastName ?? '').trim();
   const email = String(data.email ?? '').trim();
   const phone = String(data.phone ?? '').trim();
+  const address = String(data.address ?? '').trim();
+  const city = String(data.city ?? '').trim();
+  const state = String(data.state ?? '').trim();
+  const postalCode = String(data.postalCode ?? '').trim();
   const message = String(data.message ?? '').trim();
 
-  if (!firstName || !lastName || !email || !phone || !message) return null;
+  if (!firstName || !lastName || !email || !phone || !address || !city || !state || !postalCode || !message) return null;
   if (!isValidEmail(email)) return null;
 
   return {
@@ -25,10 +29,10 @@ function parseBody(body: unknown): ContactLeadInput | null {
     lastName,
     email,
     phone,
-    address: String(data.address ?? '').trim() || undefined,
-    city: String(data.city ?? '').trim() || undefined,
-    state: String(data.state ?? '').trim() || undefined,
-    postalCode: String(data.postalCode ?? '').trim() || undefined,
+    address,
+    city,
+    state,
+    postalCode,
     message,
   };
 }

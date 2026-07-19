@@ -14,7 +14,12 @@ import { site } from '../config/site';
   <section class="section-padding">
     <div class="container-page grid gap-8 lg:grid-cols-[1fr_1.2fr]">
       <ContactInfo />
-      <ContactForm client:load />
+      <div>
+        <ContactForm client:load />
+        <p class="mt-4 text-center text-sm text-brand-900/60">
+          Outside Macomb, Oakland, or Wayne County? We can still help — a travel fee may apply.
+        </p>
+      </div>
     </div>
   </section>
 </PageLayout>

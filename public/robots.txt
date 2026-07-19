@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.andeshomeservices.com/sitemap-index.xml
+Sitemap: https://www.andesstumpgrinding.com/sitemap-index.xml
