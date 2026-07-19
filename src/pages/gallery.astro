@@ -4,7 +4,11 @@ import PageLayout from '../layouts/PageLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import CTABanner from '../components/CTABanner.astro';
 import { galleryImages } from '../data/gallery';
+import { getInstagramFeedWithRefresh } from '../lib/instagram-cache';
+import { getVideos } from '../lib/instagram';
 import { site } from '../config/site';
+
+const instagramVideos = getVideos(await getInstagramFeedWithRefresh());
 ---
 
 <PageLayout
@@ -38,6 +42,48 @@ import { site } from '../config/site';
       </div>
     </div>
   </section>
+
+  {
+    instagramVideos.length > 0 && (
+      <section class="section-padding pt-0">
+        <div class="container-page">
+          <SectionHeading
+            title="From Instagram"
+            subtitle="Recent stump grinding videos from our Instagram."
+          />
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {instagramVideos.map((video) => (
+              <figure class="card overflow-hidden p-0">
+                <video
+                  src={video.mediaUrl}
+                  poster={video.thumbnailUrl}
+                  class="aspect-[9/16] w-full bg-black object-cover"
+                  controls
+                  playsinline
+                  preload="none"
+                />
+                <figcaption class="flex items-center justify-between gap-3 p-4 text-sm">
+                  {video.caption && (
+                    <span class="line-clamp-2 font-medium text-brand-900/75">
+                      {video.caption}
+                    </span>
+                  )}
+                  <a
+                    href={video.permalink}
+                    target="_blank"
+                    rel="noopener"
+                    class="shrink-0 font-semibold text-brand-700 hover:text-brand-900"
+                  >
+                    View on Instagram
+                  </a>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   <CTABanner
     title="Want results like this on your property?"

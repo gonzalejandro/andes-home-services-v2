@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "optimize:images": "tsx scripts/optimize-images.ts",
-    "scrape:reviews": "tsx scripts/scrape-reviews.ts"
+    "scrape:reviews": "tsx scripts/scrape-reviews.ts",
+    "sync:instagram": "tsx --env-file=.env scripts/sync-instagram.ts"
   },
   "dependencies": {
     "@astrojs/react": "^4.2.0",
