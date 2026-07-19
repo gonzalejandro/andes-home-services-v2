@@ -60,3 +60,23 @@
     margin-bottom: 0.35rem;
   }
 }
+
+/* Reveal-on-scroll: opacity/transform only (no layout shift), gated behind a
+   root class so titles stay visible if JS is disabled, and disabled entirely
+   for users who prefer reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.6s ease-out,
+      transform 0.6s ease-out,
+      color 0.2s ease-out;
+    will-change: opacity, transform;
+  }
+
+  .reveal-ready .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
