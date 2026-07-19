@@ -1,0 +1,23 @@
+---
+import { site } from '../config/site';
+---
+
+<div class="card space-y-3">
+  <h3 class="text-xl font-bold text-brand-800">Contact Information</h3>
+  <p class="text-brand-900/75">
+    Ready for a <strong>free</strong> estimate? Reach out by phone or email, or use the form.
+  </p>
+  <p>
+    <span class="font-semibold text-brand-800">Phone:</span>
+    <a href={`tel:${site.phoneTel}`} class="ml-2 text-accent hover:text-accent-dark">
+      {site.phone}
+    </a>
+  </p>
+  <p>
+    <span class="font-semibold text-brand-800">Email:</span>
+    <a href={`mailto:${site.email}`} class="ml-2 text-accent hover:text-accent-dark">
+      {site.email}
+    </a>
+  </p>
+  <p class="text-sm text-brand-900/60">Fully insured · Based in {site.location.city}</p>
+</div>

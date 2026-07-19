@@ -1,0 +1,25 @@
+---
+interface Props {
+  rating: number;
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const { rating, size = 'md' } = Astro.props;
+const rounded = Math.round(rating);
+---
+
+<div
+  class:list={[
+    'flex gap-0.5 text-amber-500',
+    size === 'sm' && 'text-sm',
+    size === 'md' && 'text-base',
+    size === 'lg' && 'text-xl',
+  ]}
+  aria-label={`${rating} out of 5 stars`}
+>
+  {
+    Array.from({ length: 5 }).map((_, index) => (
+      <span aria-hidden="true">{index < rounded ? '★' : '☆'}</span>
+    ))
+  }
+</div>

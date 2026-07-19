@@ -1,0 +1,42 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import FAQ from '../components/FAQ.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { site } from '../config/site';
+import { faqItems } from '../data/faq';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
+---
+
+<PageLayout
+  title={`FAQ | ${site.name}`}
+  description="Frequently asked questions about stump grinding, pricing, timing, wood chips, and service areas in Metro Detroit."
+  heroTitle="Frequently Asked Questions"
+  heroSubtitle="Answers to common questions about our stump grinding services."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="section-padding">
+    <div class="container-page">
+      <FAQ />
+    </div>
+  </section>
+
+  <CTABanner
+    title="Still have questions?"
+    description="We are happy to help. Reach out for a free estimate."
+    href="/contact"
+    cta="Contact Us"
+  />
+</PageLayout>

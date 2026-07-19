@@ -1,0 +1,18 @@
+---
+import Stars from './Stars.astro';
+
+interface Props {
+  rating: number;
+}
+
+const { rating } = Astro.props;
+---
+
+<div class="rating-shield-border">
+  <div class="rating-shield">
+    <p class="rating-score text-2xl font-bold leading-none md:text-3xl">{rating.toFixed(1)}</p>
+    <div class="stars-row mt-1 flex justify-center">
+      <Stars rating={rating} size="sm" />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import CTABanner from '../../components/CTABanner.astro';
+import { services } from '../../data/services';
+import { site } from '../../config/site';
+---
+
+<PageLayout
+  title={`Services | ${site.name}`}
+  description="Professional stump grinding services in Metro Detroit. Fully insured, professional equipment, free estimates."
+  heroTitle="Our Services"
+  heroSubtitle="Fast, safe stump removal for homeowners and contractors."
+>
+  <section class="section-padding">
+    <div class="container-page">
+      <SectionHeading
+        title="What We Offer"
+        subtitle="Every job is handled with professional stump grinding equipment and a fully insured crew."
+      />
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        {
+          services.map((service) => (
+            <ServiceCard
+              title={service.title}
+              description={service.description}
+              image={service.image}
+              imageAlt={service.imageAlt}
+              href={`/services/${service.slug}`}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Need a quote?"
+    description="Tell us about your stumps and we will follow up with a free estimate."
+    href="/contact"
+  />
+</PageLayout>

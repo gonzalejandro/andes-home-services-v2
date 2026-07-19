@@ -1,0 +1,18 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  cta?: string;
+}
+
+const { title, description, href, cta = 'Learn more' } = Astro.props;
+---
+
+<section class="bg-brand-700 text-white">
+  <div class="container-page py-12 text-center md:py-16">
+    <h2 class="text-3xl font-bold md:text-4xl">{title}</h2>
+    <p class="mx-auto mt-4 max-w-2xl text-lg text-white/90">{description}</p>
+    <a href={href} class="btn-primary mt-8">{cta}</a>
+  </div>
+</section>

@@ -1,0 +1,25 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ReviewsBlock from '../components/ReviewsBlock.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { site } from '../config/site';
+---
+
+<PageLayout
+  title={`Reviews | ${site.name}`}
+  description={`Read Google reviews for ${site.name} — professional stump grinding in Metro Detroit.`}
+  heroTitle="Google Reviews"
+  heroSubtitle="What customers are saying about our stump grinding services."
+>
+  <section class="section-padding">
+    <div class="container-page">
+      <ReviewsBlock showHeading={false} />
+    </div>
+  </section>
+
+  <CTABanner
+    title="Ready to join our happy customers?"
+    description="Request a free estimate today."
+    href="/contact"
+  />
+</PageLayout>

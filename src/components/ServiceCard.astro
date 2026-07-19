@@ -1,0 +1,29 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  title: string;
+  description: string;
+  image: ImageMetadata;
+  imageAlt: string;
+  href?: string;
+}
+
+const { title, description, image, imageAlt, href } = Astro.props;
+---
+
+<article class="card overflow-hidden p-0">
+  <Image src={image} alt={imageAlt} class="h-52 w-full object-cover" loading="lazy" />
+  <div class="p-6">
+    <h3 class="text-xl font-bold text-brand-800">{title}</h3>
+    <p class="mt-2 text-brand-900/75">{description}</p>
+  </div>
+  {href && (
+    <div class="px-6 pb-6">
+      <a href={href} class="font-semibold text-accent hover:text-accent-dark">
+        Learn more →
+      </a>
+    </div>
+  )}
+</article>

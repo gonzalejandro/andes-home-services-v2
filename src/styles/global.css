@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-brand-900 antialiased;
+  }
+
+  a {
+    @apply transition-colors;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto max-w-6xl px-4 sm:px-6;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-20;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full border-2 border-brand-800 bg-white px-6 py-3 font-semibold text-brand-800 shadow-md transition hover:bg-brand-50 hover:shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border-2 border-brand-800 bg-transparent px-6 py-3 font-semibold text-brand-800 transition hover:bg-brand-800 hover:text-white;
+  }
+
+  .card {
+    @apply rounded-2xl border border-brand-200 bg-white p-6 shadow-sm;
+  }
+
+  .rating-shield-border {
+    padding: 2px;
+    background: #c9a033;
+    clip-path: polygon(50% 0%, 100% 8%, 100% 72%, 50% 100%, 0% 72%, 0% 8%);
+    filter: drop-shadow(0 2px 6px rgb(92 72 16 / 0.22));
+  }
+
+  .rating-shield {
+    min-width: 6rem;
+    padding: 0.7rem 1.35rem 0.5rem;
+    text-align: center;
+    background: linear-gradient(180deg, #fff8e7 0%, #f5e6b8 100%);
+    clip-path: polygon(50% 0%, 100% 8%, 100% 72%, 50% 100%, 0% 72%, 0% 8%);
+  }
+
+  .rating-score {
+    color: #5c4812;
+  }
+
+  .stars-row {
+    margin-bottom: 0.35rem;
+  }
+}

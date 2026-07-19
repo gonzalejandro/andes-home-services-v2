@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import PageLayout from '../layouts/PageLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { galleryImages } from '../data/gallery';
+import { site } from '../config/site';
+---
+
+<PageLayout
+  title={`Gallery | ${site.name}`}
+  description="Photos of professional stump grinding equipment and projects across Metro Detroit."
+  heroTitle="Project Gallery"
+  heroSubtitle="Professional equipment and real stump grinding work."
+>
+  <section class="section-padding">
+    <div class="container-page">
+      <SectionHeading
+        title="Our Work"
+        subtitle="Add before/after photos here as you collect them from the field."
+      />
+      <div class="grid gap-6 sm:grid-cols-2">
+        {
+          galleryImages.map((image) => (
+            <figure class="card overflow-hidden p-0">
+              <Image
+                src={image.src}
+                alt={image.alt}
+                class="h-64 w-full object-cover"
+                loading="lazy"
+              />
+              <figcaption class="p-4 text-sm font-medium text-brand-900/75">
+                {image.caption}
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Want results like this on your property?"
+    description="Send us a few details and we will provide a free estimate."
+    href="/contact"
+  />
+</PageLayout>

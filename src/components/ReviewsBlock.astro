@@ -1,0 +1,24 @@
+---
+import reviewsData from '../data/google-reviews.json';
+import { sortReviewsPayload } from '../lib/reviews';
+import { ReviewsBlockClient } from './ReviewsBlockClient';
+
+interface Props {
+  showHeading?: boolean;
+  subtitle?: string;
+}
+
+const {
+  showHeading = true,
+  subtitle = 'See what our customers are saying about our stump grinding services.',
+} = Astro.props;
+
+const initialData = sortReviewsPayload(reviewsData);
+---
+
+<ReviewsBlockClient
+  client:load
+  initialData={initialData}
+  showHeading={showHeading}
+  subtitle={subtitle}
+/>

@@ -1,0 +1,41 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import CountyCard from '../../components/CountyCard.astro';
+import CTABanner from '../../components/CTABanner.astro';
+import { serviceAreas } from '../../data/serviceAreas';
+import { site } from '../../config/site';
+---
+
+<PageLayout
+  title={`Service Areas | ${site.name}`}
+  description={`Stump grinding in Macomb, Oakland, and Wayne counties. Based in ${site.location.city}, serving Metro Detroit.`}
+  heroTitle="Service Areas"
+  heroSubtitle={`Proudly serving Metro Detroit from ${site.location.city}.`}
+>
+  <section class="section-padding">
+    <div class="container-page">
+      <SectionHeading
+        title="Counties We Serve"
+        subtitle="Macomb, Oakland, and Wayne counties — and surrounding communities."
+      />
+      <div class="grid gap-6 md:grid-cols-3">
+        {
+          serviceAreas.map((area) => (
+            <CountyCard
+              name={area.name}
+              href={`/service-areas/${area.slug}`}
+              description={area.description.slice(0, 160) + '…'}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Not sure if we serve your area?"
+    description="Reach out with your address and we will confirm availability."
+    href="/contact"
+  />
+</PageLayout>

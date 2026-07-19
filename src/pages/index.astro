@@ -1,0 +1,141 @@
+---
+import { Image } from 'astro:assets';
+import stumpGrindingImg from '../assets/stump-grinding.webp';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ReviewsBlock from '../components/ReviewsBlock.astro';
+import { site } from '../config/site';
+import { serviceAreas } from '../data/serviceAreas';
+
+const benefits = ['Free quotes', 'Fully insured', 'Affordable pricing'];
+---
+
+<BaseLayout>
+  <Hero
+    title={site.name}
+    subtitle="Professional stump grinding across Metro Detroit — quality workmanship you can trust."
+  />
+
+  <section class="section-padding bg-white">
+    <div class="container-page grid items-center gap-10 lg:grid-cols-2">
+      <div>
+        <SectionHeading
+          title="Areas We Service"
+          subtitle={`Based in ${site.location.city}, proudly serving Metro Detroit and surrounding communities.`}
+          centered={false}
+        />
+        <ul class="mt-6 space-y-4">
+          {
+            serviceAreas.map((area) => (
+              <li>
+                <a
+                  href={`/service-areas/${area.slug}`}
+                  class="group block rounded-xl border border-brand-200 bg-brand-50 p-4 transition hover:border-accent hover:shadow-md"
+                >
+                  <p class="text-lg font-semibold text-brand-800 group-hover:text-accent">
+                    {area.name}
+                  </p>
+                  <p class="mt-1 text-sm text-brand-900/75">
+                    {area.highlights.slice(0, 2).join(' · ')}
+                  </p>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <a href="/service-areas" class="mt-6 inline-block font-semibold text-accent hover:text-accent-dark">
+          View all service areas →
+        </a>
+      </div>
+
+      <div class="service-map-embed aspect-[4/3] w-full overflow-hidden rounded-2xl border border-brand-200 shadow-sm">
+        <iframe
+          src="https://www.google.com/maps/d/u/0/embed?mid=1hsOaBAeRsq_x1K9tG_F5QlvTkd9nQZA&ehbc=2E312F"
+          class="service-map-iframe w-full border-0"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title={`${site.name} service areas`}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="container-page section-padding grid items-center gap-10 lg:grid-cols-2">
+      <Image
+        src={stumpGrindingImg}
+        alt="Professional stump grinding in progress"
+        class="w-full rounded-2xl shadow-lg"
+        loading="lazy"
+      />
+
+      <div>
+        <h2 class="text-3xl font-bold tracking-tight text-brand-800 md:text-4xl">
+          Need help stump grinding?
+        </h2>
+        <p class="mt-4 text-lg text-brand-900/75">
+          From a single stump to a full property cleanup, we make removal fast, safe, and
+          hassle-free.
+        </p>
+        <ul class="mt-8 space-y-4">
+          {
+            benefits.map((benefit) => (
+              <li class="flex items-center gap-3">
+                <span
+                  class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent"
+                  aria-hidden="true"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="h-4 w-4"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <span class="text-lg font-medium text-brand-900">{benefit}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <a href="/contact" class="btn-primary mt-8">Get a Free Estimate</a>
+      </div>
+    </div>
+
+    <div class="bg-brand-800 py-10 text-center text-white">
+      <a
+        href={`tel:${site.phoneTel}`}
+        class="inline-block text-2xl font-bold tracking-wide transition hover:text-brand-100 md:text-3xl"
+      >
+        CALL OR TEXT {site.phone}
+      </a>
+    </div>
+  </section>
+
+  <section class="section-padding">
+    <div class="container-page">
+      <ReviewsBlock />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Google My Maps always shows a title bar; crop it via overflow + offset */
+  .service-map-embed {
+    position: relative;
+  }
+
+  .service-map-iframe {
+    position: absolute;
+    left: 0;
+    top: -4rem;
+    height: calc(100% + 4rem);
+  }
+</style>

@@ -1,0 +1,87 @@
+---
+import { Image } from 'astro:assets';
+import missDig from '../assets/miss-dig.png';
+import PageLayout from '../layouts/PageLayout.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { site } from '../config/site';
+---
+
+<PageLayout
+  title={`About | ${site.name}`}
+  description={`Learn about ${site.name} — fully insured stump grinding based in ${site.location.city}, serving Metro Detroit.`}
+  heroTitle="About Us"
+  heroSubtitle="Local, dependable, and built on hard work."
+>
+  <section class="section-padding">
+    <div class="container-page mx-auto max-w-3xl space-y-5 text-lg text-brand-900/75">
+      <p>
+        At {site.name}, we're proud to be Metro Detroit's trusted choice for professional stump
+        grinding. We combine reliable service, top-quality equipment, and skilled workmanship to make
+        every job fast, safe, and hassle-free.
+      </p>
+      <p>
+        Removing a stump on your own can be time-consuming, costly, and even dangerous without the
+        right tools. That's why we focus on giving homeowners and contractors a more efficient,
+        cost-effective solution — saving you the effort and ensuring the job is done right the
+        first time.
+      </p>
+      <p>
+        Whether it's one small stump or a full property cleanup, we treat every project with care
+        and attention to detail. Our mission is simple: leave your yard cleaner, safer, and ready
+        for what's next.
+      </p>
+      <p>We are <strong>fully insured</strong> for your peace of mind.</p>
+      <p>
+        <strong>{site.name} — local, dependable, and built on hard work.</strong>
+      </p>
+    </div>
+  </section>
+
+  <section class="section-padding bg-white">
+    <div class="container-page mx-auto max-w-3xl">
+      <div class="mb-8 grid grid-cols-[1fr_auto] items-center gap-4">
+        <div class="flex min-w-0 items-center gap-3">
+          <div class="shrink-0 text-4xl" aria-hidden="true">⚠️</div>
+          <h2 class="text-3xl font-bold text-brand-800 md:text-4xl">
+            Safety & Underground Utilities
+          </h2>
+        </div>
+        <Image
+          src={missDig}
+          alt="MISS DIG"
+          class="h-20 w-auto shrink-0 justify-self-end"
+          loading="lazy"
+        />
+      </div>
+      <div class="space-y-4 text-lg text-brand-900/75">
+        <p>We are <strong>fully insured</strong> and committed to safety in every project we undertake.</p>
+        <p>
+          <strong>Important:</strong> Unless clearly marked, {site.name} cannot be responsible for
+          any underground irrigation or utilities including but not limited to gas, electric, or
+          cable lines. If you think there may be underground utilities, please let us know
+          immediately.
+        </p>
+        <p>
+          We call <strong>MISS DIG</strong> when necessary to ensure safety. You can also call
+          MISS DIG at
+          <a href="tel:8004827171" class="text-accent hover:text-accent-dark"> (800) 482-7171</a>
+          or visit
+          <a
+            href="https://www.missdig811.org/"
+            class="text-accent hover:text-accent-dark"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            missdig811.org
+          </a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Ready to get started?"
+    description="Contact us for a free, no-obligation stump grinding estimate."
+    href="/contact"
+  />
+</PageLayout>

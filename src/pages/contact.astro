@@ -1,0 +1,20 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ContactInfo from '../components/ContactInfo.astro';
+import ContactForm from '../components/ContactForm';
+import { site } from '../config/site';
+---
+
+<PageLayout
+  title={`Contact | ${site.name}`}
+  description={`Request a free stump grinding estimate from ${site.name}. Call ${site.phone} or send us a message.`}
+  heroTitle="Get In Touch"
+  heroSubtitle="Request your free stump-grinding quote. Fully insured."
+>
+  <section class="section-padding">
+    <div class="container-page grid gap-8 lg:grid-cols-[1fr_1.2fr]">
+      <ContactInfo />
+      <ContactForm client:load />
+    </div>
+  </section>
+</PageLayout>

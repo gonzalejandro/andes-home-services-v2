@@ -1,0 +1,40 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import CTABanner from '../../components/CTABanner.astro';
+import { serviceAreas } from '../../data/serviceAreas';
+import { site } from '../../config/site';
+
+export function getStaticPaths() {
+  return serviceAreas.map((area) => ({
+    params: { slug: area.slug },
+    props: { area },
+  }));
+}
+
+const { area } = Astro.props;
+---
+
+<PageLayout
+  title={`Stump Grinding in ${area.name} | ${site.name}`}
+  description={`${site.name} provides professional stump grinding in ${area.name}, Michigan. Free estimates, fully insured.`}
+  heroTitle={`Stump Grinding in ${area.name}`}
+  heroSubtitle={`Professional stump removal serving ${area.county} County and surrounding communities.`}
+>
+  <section class="section-padding">
+    <div class="container-page mx-auto max-w-3xl space-y-6">
+      <p class="text-lg text-brand-900/75">{area.description}</p>
+      <div class="card">
+        <h2 class="text-xl font-bold text-brand-800">What we offer in {area.name}</h2>
+        <ul class="mt-4 list-disc space-y-2 pl-5 text-brand-900/75">
+          {area.highlights.map((highlight) => <li>{highlight}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title={`Request service in ${area.name}`}
+    description="Free estimates with no obligation."
+    href="/contact"
+  />
+</PageLayout>

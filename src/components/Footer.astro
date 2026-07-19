@@ -1,0 +1,20 @@
+---
+import { site } from '../config/site';
+import SocialLinks from './SocialLinks.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-white/10 bg-brand-900 py-8 text-center text-white">
+  <div class="container-page space-y-3">
+    <SocialLinks class="justify-center" />
+    <p class="font-medium">&copy; {year} {site.name}. All rights reserved.</p>
+    <p class="text-sm text-white/80">
+      <a href={`mailto:${site.email}`} class="hover:text-white">{site.email}</a>
+      {' · '}
+      <a href={`tel:${site.phoneTel}`} class="hover:text-white">{site.phone}</a>
+    </p>
+    <p class="text-xs text-white/60">
+      Serving Macomb, Oakland, and Wayne counties from {site.location.city}, {site.location.region}
+    </p>
+  </div>
+</footer>

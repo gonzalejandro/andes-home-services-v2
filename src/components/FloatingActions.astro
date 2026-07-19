@@ -1,0 +1,12 @@
+---
+import { site } from '../config/site';
+---
+
+<a
+  href={`tel:${site.phoneTel}`}
+  class="btn-primary fixed bottom-4 right-4 z-50 inline-flex items-center gap-2 shadow-lg sm:bottom-6 sm:right-6"
+  aria-label={`Call us at ${site.phone}`}
+>
+  <span aria-hidden="true">📞</span>
+  <span class="hidden sm:inline">Call Us</span>
+</a>

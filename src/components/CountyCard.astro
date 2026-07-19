@@ -1,0 +1,15 @@
+---
+interface Props {
+  name: string;
+  href: string;
+  description: string;
+}
+
+const { name, href, description } = Astro.props;
+---
+
+<a href={href} class="card block transition hover:-translate-y-0.5 hover:shadow-md">
+  <h3 class="text-xl font-bold text-brand-800">{name}</h3>
+  <p class="mt-2 text-brand-900/75">{description}</p>
+  <span class="mt-4 inline-block font-semibold text-accent">View service area →</span>
+</a>
