@@ -5,9 +5,10 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "npm run optimize:images && astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "optimize:images": "tsx scripts/optimize-images.ts",
     "scrape:reviews": "tsx scripts/scrape-reviews.ts"
   },
   "dependencies": {
