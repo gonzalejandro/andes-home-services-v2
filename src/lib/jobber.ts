@@ -1,11 +1,5 @@
-import { readFile, writeFile } from 'node:fs/promises';
-import path from 'node:path';
-import { list, put } from '@vercel/blob';
-
 const JOBBER_API_URL = 'https://api.getjobber.com/api/graphql';
 const JOBBER_TOKEN_URL = 'https://api.getjobber.com/api/oauth/token';
-const JOBBER_TOKEN_BLOB_PATH = 'jobber/refresh-token.json';
-const localTokenPath = path.join(process.cwd(), 'src/data/jobber-token.json');
 
 export type ContactLeadInput = {
   firstName: string;
@@ -31,59 +25,10 @@ type TokenResponse = {
   expires_in: number;
 };
 
+// Refresh token rotation is disabled for this app in the Jobber Developer
+// Center, so JOBBER_REFRESH_TOKEN is a long-lived credential and the env var
+// is the single source of truth. Only the short-lived access token is cached.
 let cachedAccessToken: { token: string; expiresAt: number } | null = null;
-let cachedRefreshToken: string | null = null;
-
-type StoredToken = { refresh_token: string; updated_at: string };
-
-async function readRefreshTokenFromBlob(): Promise<string | null> {
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return null;
-
-  try {
-    const { blobs } = await list({ prefix: JOBBER_TOKEN_BLOB_PATH, limit: 1 });
-    const blob = blobs.find((entry) => entry.pathname === JOBBER_TOKEN_BLOB_PATH);
-    if (!blob) return null;
-
-    const response = await fetch(blob.url);
-    if (!response.ok) return null;
-
-    const data = (await response.json()) as StoredToken;
-    return data.refresh_token ?? null;
-  } catch {
-    return null;
-  }
-}
-
-async function readRefreshTokenFromFile(): Promise<string | null> {
-  try {
-    const raw = await readFile(localTokenPath, 'utf8');
-    const data = JSON.parse(raw) as StoredToken;
-    return data.refresh_token ?? null;
-  } catch {
-    return null;
-  }
-}
-
-async function getStoredRefreshToken(): Promise<string | null> {
-  return (await readRefreshTokenFromBlob()) ?? (await readRefreshTokenFromFile());
-}
-
-async function saveRefreshToken(refreshToken: string): Promise<void> {
-  const payload: StoredToken = { refresh_token: refreshToken, updated_at: new Date().toISOString() };
-
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
-    await put(JOBBER_TOKEN_BLOB_PATH, JSON.stringify(payload), {
-      access: 'public',
-      allowOverwrite: true,
-      contentType: 'application/json',
-    });
-    return;
-  }
-
-  if (import.meta.env.DEV) {
-    await writeFile(localTokenPath, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
-  }
-}
 
 function getJobberConfig() {
   const clientId = import.meta.env.JOBBER_CLIENT_ID;
@@ -112,13 +57,11 @@ async function getAccessToken(): Promise<string> {
     return cachedAccessToken.token;
   }
 
-  const refreshToken = cachedRefreshToken ?? (await getStoredRefreshToken()) ?? config.refreshToken;
-
   const body = new URLSearchParams({
     grant_type: 'refresh_token',
     client_id: config.clientId,
     client_secret: config.clientSecret,
-    refresh_token: refreshToken,
+    refresh_token: config.refreshToken,
   });
 
   const response = await fetch(JOBBER_TOKEN_URL, {
@@ -137,9 +80,6 @@ async function getAccessToken(): Promise<string> {
     token: token.access_token,
     expiresAt: Date.now() + (token.expires_in - 60) * 1000,
   };
-
-  cachedRefreshToken = token.refresh_token;
-  await saveRefreshToken(token.refresh_token);
 
   return token.access_token;
 }
