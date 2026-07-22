@@ -1,14 +1,24 @@
 {
   "rating": 5,
-  "userRatingCount": 23,
+  "userRatingCount": 24,
   "reviews": [
+    {
+      "authorName": "A Zein",
+      "authorUri": "https://www.google.com/maps/contrib/105567845427103477161/reviews?hl=en-US",
+      "authorPhotoUri": "https://lh3.googleusercontent.com/a/ACg8ocJTOnMAsUG3AkM5g7n0Q127reGKkQ2BcFkw3kPu7Pt5bgdC0w=s64-c-rp-mo-br100",
+      "rating": 5,
+      "text": "Very reliable, showed up on time did a very complete Job. Highly recommended",
+      "publishedAt": "2026-07-21T17:40:55.163Z",
+      "relativePublishTimeDescription": "8 hours ago"
+    },
     {
       "authorName": "Yvette Burgen",
       "authorUri": "https://www.google.com/maps/contrib/101678115928512305331/reviews?hl=en-US",
       "authorPhotoUri": "https://lh3.googleusercontent.com/a-/ALV-UjXaDFLTG-_mZqPC4GvLgeO7ZLNsIQnRaWp6Hpoc0mds_yKV3QAE=s64-c-rp-mo-br100",
       "rating": 5,
       "text": "I had an excellent experience with Andes Stump Grinding. They came out the same day I contacted them to provide an estimate and returned the next day to complete the job professionally and efficiently. They removed 25 stumps from my property, and the difference is incredible. The before photo shows the yard full of stumps, and the after photo shows a beautifully clear space. Plus, they offered a very fair price. Highly recommend their services!",
-      "relativePublishTimeDescription": "19 hours ago"
+      "publishedAt": "2026-07-18T04:45:47.951Z",
+      "relativePublishTimeDescription": "3 days ago"
     },
     {
       "authorName": "Charles Phillips",
@@ -16,7 +26,8 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a-/ALV-UjUPRc31ntajGX4VOT_e3n2_zGs1xVRlDbjeqGp4IEcMRQT6Tlk1=s64-c-rp-mo-ba12-br100",
       "rating": 5,
       "text": "Excellent service. Quick and adaptive. Will use this service exclusively from\nNow on for stump removal.",
-      "relativePublishTimeDescription": "6 days ago"
+      "publishedAt": "2026-07-12T00:34:59.141Z",
+      "relativePublishTimeDescription": "a week ago"
     },
     {
       "authorName": "Nadia Colbert",
@@ -24,6 +35,7 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a/ACg8ocIWsog3fgv2tu2DLlxR_lAVtdK1dFFUS6CZeXrtqEZgWNJqQA=s64-c-rp-mo-br100",
       "rating": 5,
       "text": "They were able to grind my evergreen bush stump. Great work, they were quick!",
+      "publishedAt": "2026-07-03T22:22:30.960Z",
       "relativePublishTimeDescription": "2 weeks ago"
     },
     {
@@ -32,6 +44,7 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a/ACg8ocJcA6Hiff62LYW3Vvswfxu8dkdmJ-uLp4zCnsQIBbqcoNsBdQ=s64-c-rp-mo-ba12-br100",
       "rating": 5,
       "text": "As the owner of a tree service company, I appreciate contractors who show up on time and do quality work. Andes Stump Grinding did an excellent job for us. Professional, easy to work with, fair pricing, and they left the area looking great. I’ll definitely be using them again and would confidently recommend them to anyone needing stump grinding services.\n\nHighly recommended! 💯🌳",
+      "publishedAt": "2026-06-08T16:13:51.136Z",
       "relativePublishTimeDescription": "a month ago"
     },
     {
@@ -40,6 +53,7 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a/ACg8ocLuzNSQVg1ROC6hsJDdrz-pHpd7HNMkK_pUm3bhfWWdcLrI4918=s64-c-rp-mo-br100",
       "rating": 5,
       "text": "Great service! Very professional and fairly priced. Would definitely recommend!!",
+      "publishedAt": "2026-05-24T12:29:42.611Z",
       "relativePublishTimeDescription": "a month ago"
     },
     {
@@ -48,6 +62,7 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a/ACg8ocI4N3oml_KdsNw5ahbWEy4tcJhhR6utou4EuvIDQGuNyw_RnA=s64-c-rp-mo-br100",
       "rating": 5,
       "text": "Andes was very responsive from the start. He called back on the weekend and was able to price out the work from photos\nI sent.  Was completed before noon 1 day after I called. Prompt. Very competitive pricing ( I got 3). Very good work and cleanup afterwords.  Will be using him on any work needed going forward.",
+      "publishedAt": "2026-05-22T22:55:08.575Z",
       "relativePublishTimeDescription": "a month ago"
     },
     {
@@ -56,6 +71,7 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a/ACg8ocKJ5S3DrChjKpMWtpo9_1KksvjZig6ak3q-Fk3byOStv_tYAw=s64-c-rp-mo-br100",
       "rating": 5,
       "text": "Very nice person he keeps you up to date what’s going on and everything he going to do. You call or text him he responds very quickly.  By the way did a very good job. Don’t look no further call him.",
+      "publishedAt": "2026-04-25T17:04:54.593Z",
       "relativePublishTimeDescription": "2 months ago"
     },
     {
@@ -64,7 +80,8 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a/ACg8ocL2UCuAuaZuM1Acj_iZ5qNWTUZWVJsq4iov0AcIKbQtChxwLA=s64-c-rp-mo-br100",
       "rating": 5,
       "text": "Alex did a good job removing a stump in front of my house!",
-      "relativePublishTimeDescription": "2 months ago"
+      "publishedAt": "2026-04-21T14:22:46.201Z",
+      "relativePublishTimeDescription": "3 months ago"
     },
     {
       "authorName": "Carolina Mascareño Orellana",
@@ -72,6 +89,7 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a-/ALV-UjXm0uP_k6TZX0snj4wbu1LE5RmoLuR2JalhggVG3FBvk1jeX1ph=s64-c-rp-mo-br100",
       "rating": 5,
       "text": "Without a doubt, Alejandro provides an excellent service. His level of professionalism truly stands out—he approaches every aspect of the job with precision, responsibility, and genuine care.\n\nWhen it comes to stump removal, he demonstrates outstanding organization, punctuality, and technical expertise. He arrives fully equipped with all the necessary tools, ensuring the work is carried out efficiently, safely, and to the highest standard.\n\nIt is clear that he takes his work seriously, paying close attention to detail to deliver impeccable results. He is also consistently attentive, respectful, and responsive, making the entire experience smooth and reliable.\n\nAlejandro is a highly recommended professional for anyone seeking top-quality service.",
+      "publishedAt": "2026-04-10T22:05:30.266Z",
       "relativePublishTimeDescription": "3 months ago"
     },
     {
@@ -80,6 +98,7 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a-/ALV-UjXvdvPKyp2WZ3oYiGVN6feX6_0VFdu0xFHtZ8T1Qcf62yRwSTU=s64-c-rp-mo-br100",
       "rating": 5,
       "text": "I had a very good experience with Alejandro, the owner.  Very responsive and punctual with competitive pricing.  They were thorough and did a fantastic job.  I would recommend Andes to family and friends…. Give star service…",
+      "publishedAt": "2026-04-07T17:01:11.222Z",
       "relativePublishTimeDescription": "3 months ago"
     },
     {
@@ -88,6 +107,7 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a/ACg8ocKEStyaarjVCgRqbSluYQZO-K3_wQuDp8rbSjQCCR_zsYycAQ=s64-c-rp-mo-ba12-br100",
       "rating": 5,
       "text": "Amazing service! Destroyed the stump and cleaned up in less than an hour!",
+      "publishedAt": "2026-03-30T21:43:23.914Z",
       "relativePublishTimeDescription": "3 months ago"
     },
     {
@@ -96,7 +116,8 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a/ACg8ocKtG3t8ant0zslQ0TNTSlMcoW4yTvSvHWFT8XnHU6xwRMcO7Q=s64-c-rp-mo-ba12-br100",
       "rating": 5,
       "text": "Excellent work! Fair price. Alejandro arrived on time and left everything very clean. He is always attentive to our questions and very helpful.",
-      "relativePublishTimeDescription": "3 months ago"
+      "publishedAt": "2026-03-21T13:45:35.097Z",
+      "relativePublishTimeDescription": "4 months ago"
     },
     {
       "authorName": "Doris Love",
@@ -104,7 +125,8 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a-/ALV-UjVRdCrKjfUm-Oe5yt3aV6X4VCcpj3V8tBr6eSFk2ix4wlT7KCbo=s64-c-rp-mo-br100",
       "rating": 5,
       "text": "Great service. He set a time and came out ready to GET IT DONE!  I had roots all over my yard. He helped so much. Very clean. He even cleaned my neighbor yard that got debris. Quality service. Worth every penny.  I will be referring to anyone I know.",
-      "relativePublishTimeDescription": "3 months ago"
+      "publishedAt": "2026-03-19T14:01:14.877Z",
+      "relativePublishTimeDescription": "4 months ago"
     },
     {
       "authorName": "Anthony L",
@@ -112,6 +134,7 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a/ACg8ocJuKjKN1-YGftLRdVOYV_lVmRpGJgE4mX1RjN1Nhek-lr5xzQ=s64-c-rp-mo-ba12-br100",
       "rating": 5,
       "text": "Alex was super professional! He was transparent and forward on what he could do for us and did not disappoint. Will be recommending to friends in need of stump removal!",
+      "publishedAt": "2026-03-17T19:31:15.363Z",
       "relativePublishTimeDescription": "4 months ago"
     },
     {
@@ -120,6 +143,7 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a-/ALV-UjU-HTMBjeR3mWWas6gRsrWtgoQbjd-klAK05Jyfqt4MZUkoRVX8=s64-c-rp-mo-br100",
       "rating": 5,
       "text": "Alejandro did an incredible job removing a stump from a stump where I used to live. I recommend Andes Stump Grinding a 100%",
+      "publishedAt": "2026-03-16T16:35:19.397Z",
       "relativePublishTimeDescription": "4 months ago"
     },
     {
@@ -128,6 +152,7 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a-/ALV-UjVxjCOlalZ1B7osnzGGQ7WZQia3o0TthVafF9rR_s2elkdSa3NrCw=s64-c-rp-mo-br100",
       "rating": 5,
       "text": "Stumps were ground down completely and the mulch spread out nicely.  Lawn was left clean of mulch as he used boards to make sure the mulch didn’t spill over to the lawn.  Fair price and he showed up on time.",
+      "publishedAt": "2026-03-09T20:06:32.212Z",
       "relativePublishTimeDescription": "4 months ago"
     },
     {
@@ -136,6 +161,7 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a/ACg8ocJstz1wAEo94c4AJ3FRfZcATYMeaFWXpCmVcf9EKFQFFJBfDg=s64-c-rp-mo-br100",
       "rating": 5,
       "text": "Did a great job stump grinding some trees i cut down. Great prices!",
+      "publishedAt": "2026-02-10T19:24:50.453Z",
       "relativePublishTimeDescription": "5 months ago"
     },
     {
@@ -144,6 +170,7 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a/ACg8ocIEw7Y4jtN36J3QqhcopVLDWYLWIAEe0_gtrk4qgInA8hlXIU4=s64-c-rp-mo-ba12-br100",
       "rating": 5,
       "text": "Absolutely superb service. Super helpful and punctual. Came out quickly and got the job done professionally! Would recommend.",
+      "publishedAt": "2025-12-12T16:13:14.357Z",
       "relativePublishTimeDescription": "7 months ago"
     },
     {
@@ -152,6 +179,7 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a/ACg8ocKnonBQI2LbJKHLbtHFoeTw1tvTT5K3FyZ8O4TtsyQYHeWxXW1R=s64-c-rp-mo-br100",
       "rating": 5,
       "text": "Great service! Fast response, fair price. I had two stumps and they're now completely gone. Cleaned up everything after. Highly recommend",
+      "publishedAt": "2025-12-12T12:37:23.554Z",
       "relativePublishTimeDescription": "7 months ago"
     },
     {
@@ -160,6 +188,7 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a-/ALV-UjVJQ_qxrFSF_xOnOrdYGYaTtyYkus0jVqaSlliUXeHxk3R3zMss=s64-c-rp-mo-br100",
       "rating": 5,
       "text": "",
+      "publishedAt": "2026-07-03T20:09:07.863Z",
       "relativePublishTimeDescription": "2 weeks ago"
     },
     {
@@ -168,6 +197,7 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a-/ALV-UjWKlKauwmK44RAOn1FX7FUJ25FgPmjJ7f7EmWL5rTILsGQUOzc=s64-c-rp-mo-br100",
       "rating": 5,
       "text": "",
+      "publishedAt": "2026-04-14T18:24:11.100Z",
       "relativePublishTimeDescription": "3 months ago"
     },
     {
@@ -176,6 +206,7 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a/ACg8ocI6J1PZVvxrhz0eDwkBg-cSw8gYnrjlQMqwu6x7N2SYknCg3g=s64-c-rp-mo-br100",
       "rating": 5,
       "text": "",
+      "publishedAt": "2026-04-07T22:17:02.281Z",
       "relativePublishTimeDescription": "3 months ago"
     },
     {
@@ -184,9 +215,10 @@
       "authorPhotoUri": "https://lh3.googleusercontent.com/a-/ALV-UjWxPkzL54jg8Qkil5XJ3K5wTYzl9d7pt2CYPYcLK1dLI0iCsn4M=s64-c-rp-mo-br100",
       "rating": 5,
       "text": "",
+      "publishedAt": "2026-03-22T21:18:11.335Z",
       "relativePublishTimeDescription": "3 months ago"
     }
   ],
-  "fetchedAt": "2026-07-19T00:32:41.902Z",
+  "fetchedAt": "2026-07-22T02:12:17.404Z",
   "sourceUrl": "https://www.google.com/maps/place/Andes+Stump+Grinding/@42.6774895,-83.246131,17z/data=!3m1!4b1!4m6!3m5!1s0xaeb61f3cfc839df5:0x4ed1cac05ac51559!8m2!3d42.6774895!4d-83.246131!16s%2Fg%2F11yr_v_16d?entry=ttu"
 }

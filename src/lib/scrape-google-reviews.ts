@@ -10,12 +10,26 @@ function stripHtml(value: string | undefined | null): string {
     .trim();
 }
 
+function parsePublishedAt(time: unknown): string | undefined {
+  // The raw time node looks like ["8 hours ago", 2, "1784655655163"], where the
+  // last element is the publish time in epoch milliseconds. Prefer that absolute
+  // value so the relative label can be recomputed at render time.
+  if (!Array.isArray(time)) return undefined;
+
+  const raw = time[2];
+  const ms = typeof raw === 'number' ? raw : typeof raw === 'string' ? Number(raw) : NaN;
+  if (!Number.isFinite(ms) || ms <= 0) return undefined;
+
+  return new Date(ms).toISOString();
+}
+
 function mapRawReview(review: unknown): GoogleReview | null {
   if (!Array.isArray(review)) return null;
 
   const rating = typeof review[1] === 'number' ? review[1] : 0;
-  const published =
-    Array.isArray(review[2]) && typeof review[2][0] === 'string' ? review[2][0] : '';
+  const publishedAt = parsePublishedAt(review[2]);
+  const relativePublishTimeDescription =
+    Array.isArray(review[2]) && typeof review[2][0] === 'string' ? review[2][0] : undefined;
   const author = Array.isArray(review[3]) ? review[3] : [];
   const text = stripHtml((review[27] ?? review[28]) as string | undefined);
 
@@ -25,7 +39,9 @@ function mapRawReview(review: unknown): GoogleReview | null {
     authorPhotoUri: typeof author[1] === 'string' ? author[1] : undefined,
     rating,
     text,
-    relativePublishTimeDescription: published,
+    publishedAt,
+    // Kept only as a fallback for reviews whose absolute timestamp is missing.
+    relativePublishTimeDescription,
   };
 }
 

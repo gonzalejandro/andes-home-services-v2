@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import type { GoogleReview } from '@/lib/reviews';
+import { formatRelativePublishTime, type GoogleReview } from '@/lib/reviews';
 
 function Stars({ rating }: { rating: number }) {
   return (
@@ -92,7 +92,7 @@ function ReviewCard({ review }: { review: GoogleReview }) {
           ) : (
             <p className="truncate font-semibold text-brand-800">{review.authorName}</p>
           )}
-          <p className="text-xs text-brand-900/60">{review.relativePublishTimeDescription}</p>
+          <p className="text-xs text-brand-900/60">{formatRelativePublishTime(review)}</p>
         </div>
       </div>
       <div className="mt-2 shrink-0">
