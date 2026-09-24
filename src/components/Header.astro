@@ -2,111 +2,69 @@
 import { Image } from 'astro:assets';
 import logo from '../assets/andes-stump-grinding.png';
 import { site, navLinks } from '../config/site';
-import SocialLinks from './SocialLinks.astro';
+import Container from './Container.astro';
+import Button from './Button.astro';
 
+interface Props {
+  /** `dark` for pages with no photo banner behind the overlaid header. */
+  variant?: 'light' | 'dark';
+}
+
+const { variant = 'light' } = Astro.props;
+const dark = variant === 'dark';
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="bg-gradient-to-br from-brand-800 to-brand-700 text-white shadow-md">
-  <div class="container-page py-4 md:py-6">
-    <div class="relative flex items-center justify-center">
-      <a href="/" class="flex items-center gap-3 md:gap-4">
-        <Image
-          src={logo}
-          alt={site.name}
-          class="h-20 w-auto brightness-0 invert md:h-28"
-        />
-        <div class="hidden sm:block">
-          <p class="text-xl font-bold tracking-wide md:text-3xl">{site.name}</p>
-          <p class="text-xs uppercase tracking-widest text-white/80 md:text-sm">
-            Professional Stump Grinding Services
-          </p>
-        </div>
-      </a>
-
-      <button
-        id="mobile-menu-button"
-        type="button"
-        class="absolute right-0 inline-flex items-center justify-center rounded-lg border border-white/20 p-2 text-white md:hidden"
-        aria-expanded="false"
-        aria-controls="mobile-menu"
-        aria-label="Toggle navigation menu"
-      >
-        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
-    </div>
-
-    <nav class="mt-4 hidden items-center gap-4 border-t border-white/20 pt-4 md:flex" aria-label="Main navigation">
-      <ul class="flex flex-1 flex-wrap items-center justify-center gap-1 lg:gap-2">
-        {
-          navLinks.map((link) => {
-            const isActive =
-              link.href === '/'
-                ? currentPath === '/'
-                : currentPath.startsWith(link.href);
-            return (
-              <li>
-                <a
-                  href={link.href}
-                  class:list={[
-                    'rounded-full px-3 py-2 text-sm font-medium transition lg:px-4',
-                    isActive
-                      ? 'bg-white/15 text-white'
-                      : 'text-white/85 hover:bg-white/10 hover:text-white',
-                  ]}
-                  aria-current={isActive ? 'page' : undefined}
-                >
-                  {link.label}
-                </a>
-              </li>
-            );
-          })
-        }
-      </ul>
-      <SocialLinks class="shrink-0" />
-    </nav>
+<!-- Overlaid on the hero; the border spans the full width, not the container. -->
+<header
+  class:list={[
+    'absolute inset-x-0 top-0 z-[100] border-b-[0.5px]',
+    dark ? 'border-brand-900/25 text-brand-900' : 'border-white/35 text-white',
+  ]}
+>
+  <Container
+    class="flex flex-wrap items-center justify-center gap-x-[2rem] gap-y-[0.75rem] py-[1.1rem] xl:flex-nowrap xl:justify-between"
+  >
+    <a href="/" class="flex shrink-0 items-center gap-[0.6rem]">
+      {/* The logo is dark green on transparent and squarely padded, so it gets
+          inverted for the dark hero and pulled tight with negative margins. */}
+      <Image
+        src={logo}
+        alt=""
+        class:list={['-my-[12px] h-[64px] w-auto', !dark && 'brightness-0 invert']}
+      />
+      <span class="font-display text-[1.1rem] font-semibold tracking-[0.01em]">{site.name}</span>
+    </a>
 
     <nav
-      id="mobile-menu"
-      class="mt-4 hidden border-t border-white/20 pt-4 md:hidden"
-      aria-label="Mobile navigation"
+      class="flex flex-wrap justify-center gap-[1.1rem] text-[0.85rem] font-medium sm:gap-[1.75rem] sm:text-[0.9rem]"
+      aria-label="Main navigation"
     >
-      <SocialLinks class="mb-4 justify-center" />
-      <ul class="grid gap-1">
-        {
-          navLinks.map((link) => {
-            const isActive =
-              link.href === '/'
-                ? currentPath === '/'
-                : currentPath.startsWith(link.href);
-            return (
-              <li>
-                <a
-                  href={link.href}
-                  class:list={[
-                    'block rounded-lg px-3 py-2 text-sm font-medium',
-                    isActive ? 'bg-white/15' : 'hover:bg-white/10',
-                  ]}
-                >
-                  {link.label}
-                </a>
-              </li>
-            );
-          })
-        }
-      </ul>
+      {
+        navLinks.map((link) => {
+          const isActive =
+            link.href === '/' ? currentPath === '/' : currentPath.startsWith(link.href);
+          return (
+            <a
+              href={link.href}
+              aria-current={isActive ? 'page' : undefined}
+              class:list={[
+                'relative transition-colors',
+                dark ? 'hover:text-accent' : 'hover:text-brand-900',
+                // Small dot before the current page's link.
+                isActive &&
+                  "before:absolute before:left-[-0.9rem] before:top-1/2 before:h-[5px] before:w-[5px] before:-translate-y-1/2 before:rounded-full before:bg-current before:content-[''] max-sm:before:hidden",
+              ]}
+            >
+              {link.label}
+            </a>
+          );
+        })
+      }
     </nav>
-  </div>
+
+    <Button href={`tel:${site.phoneTel}`} variant={dark ? 'ghostDark' : 'ghost'}>
+      Need a quote? Call or text {site.phone}
+    </Button>
+  </Container>
 </header>
-
-<script>
-  const button = document.getElementById('mobile-menu-button');
-  const menu = document.getElementById('mobile-menu');
-
-  button?.addEventListener('click', () => {
-    const isOpen = menu?.classList.toggle('hidden') === false;
-    button.setAttribute('aria-expanded', String(isOpen));
-  });
-</script>

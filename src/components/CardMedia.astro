@@ -1,0 +1,23 @@
+---
+/*
+ * .card-media — a fixed-ratio frame that crops whatever it holds. Photos get
+ * the same slow zoom as the hero; clips play without it.
+ */
+interface Props {
+  /** 16/9 instead of 4/3 (services page cards). */
+  short?: boolean;
+  class?: string;
+}
+
+const { short = false, class: className } = Astro.props;
+---
+
+<div
+  class:list={[
+    'overflow-hidden bg-hairline',
+    short ? 'aspect-video' : 'aspect-[4/3]',
+    className,
+  ]}
+>
+  <slot />
+</div>

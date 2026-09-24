@@ -6,15 +6,12 @@ interface Props {
 
 const { rating, size = 'md' } = Astro.props;
 const rounded = Math.round(rating);
+
+const sizes = { sm: 'text-[0.9rem]', md: 'text-base', lg: 'text-xl' };
 ---
 
 <div
-  class:list={[
-    'flex gap-0.5 text-amber-500',
-    size === 'sm' && 'text-sm',
-    size === 'md' && 'text-base',
-    size === 'lg' && 'text-xl',
-  ]}
+  class:list={['flex gap-[0.125rem] text-amber-500', sizes[size]]}
   aria-label={`${rating} out of 5 stars`}
 >
   {

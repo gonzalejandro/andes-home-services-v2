@@ -1,4 +1,6 @@
 ---
+import Card from './Card.astro';
+
 interface Props {
   name: string;
   href: string;
@@ -8,8 +10,13 @@ interface Props {
 const { name, href, description } = Astro.props;
 ---
 
-<a href={href} class="card block transition hover:-translate-y-0.5 hover:shadow-md">
-  <h3 class="text-xl font-bold text-brand-800">{name}</h3>
-  <p class="mt-2 text-brand-900/75">{description}</p>
-  <span class="mt-4 inline-block font-semibold text-accent">View service area →</span>
-</a>
+<Card href={href} class="group block">
+  <h3 class="mb-[0.4rem]">{name}</h3>
+  <p class="text-[0.93rem] text-muted">{description}</p>
+  <span class="mt-[1rem] inline-block text-[0.9rem] font-semibold text-brand-900">
+    View service area
+    <span class="inline-block transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">
+      →
+    </span>
+  </span>
+</Card>

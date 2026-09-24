@@ -15,16 +15,29 @@ export const site = {
   social: {
     facebook: 'https://www.facebook.com/p/Andes-Stump-Grinding-61584649354878/',
     instagram: 'https://www.instagram.com/andesstumpgrinding/',
+    google: 'https://maps.app.goo.gl/qC7ef8qoVcdMPR2w8',
   },
 } as const;
 
+/*
+ * The designer's header carries five links; Service Areas, Gallery and Reviews
+ * live in the footer so they stay one click away site-wide.
+ */
 export const navLinks = [
   { href: '/', label: 'Home' },
+  { href: '/about', label: 'About Us' },
+  { href: '/services', label: 'Services' },
+  { href: '/faq', label: 'FAQ' },
+  { href: '/contact', label: 'Contact' },
+] as const;
+
+export const footerNavLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About Us' },
   { href: '/services', label: 'Services' },
   { href: '/service-areas', label: 'Service Areas' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/reviews', label: 'Reviews' },
-  { href: '/about', label: 'About' },
   { href: '/faq', label: 'FAQ' },
   { href: '/contact', label: 'Contact' },
 ] as const;

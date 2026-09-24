@@ -1,0 +1,38 @@
+---
+// .section / .section-alt / .section-dark from the mockup.
+interface Props {
+  tone?: 'light' | 'alt' | 'dark' | 'none';
+  class?: string;
+  id?: string;
+  reveal?: boolean;
+  /** Clears the overlaid header on pages with no photo banner (.page-top). */
+  pageTop?: boolean;
+}
+
+const {
+  tone = 'light',
+  class: className,
+  id,
+  reveal = false,
+  pageTop = false,
+} = Astro.props;
+
+const tones = {
+  light: '',
+  alt: 'bg-sand',
+  dark: 'bg-brand-900 text-white',
+  none: '',
+};
+---
+
+<section
+  id={id}
+  class:list={[
+    pageTop ? 'pb-[3.25rem] pt-[12rem] sm:pb-[4.5rem] sm:pt-[11rem]' : 'py-[3.25rem] sm:py-[4.5rem]',
+    tones[tone],
+    reveal && 'reveal',
+    className,
+  ]}
+>
+  <slot />
+</section>

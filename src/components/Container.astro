@@ -1,0 +1,19 @@
+---
+// .container from the mockup: a 1200px shell with a 12rem gutter that
+// tightens to 2.5rem on small screens.
+interface Props {
+  class?: string;
+  as?: string;
+}
+
+const { class: className, as: Tag = 'div' }: Props = Astro.props;
+---
+
+<Tag
+  class:list={[
+    'mx-auto w-[min(1200px,100%-2.5rem)] sm:w-[min(1200px,100%-12rem)]',
+    className,
+  ]}
+>
+  <slot />
+</Tag>

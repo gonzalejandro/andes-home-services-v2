@@ -1,17 +1,37 @@
 ---
+import Eyebrow from './Eyebrow.astro';
+
 interface Props {
   title: string;
+  eyebrow?: string;
   subtitle?: string;
   centered?: boolean;
+  tone?: 'light' | 'dark';
   class?: string;
 }
 
-const { title, subtitle, centered = true, class: className } = Astro.props;
+const {
+  title,
+  eyebrow,
+  subtitle,
+  centered = true,
+  tone = 'light',
+  class: className,
+} = Astro.props;
 ---
 
-<div class:list={['mb-10', centered && 'text-center', className]}>
-  <h2 class="text-3xl font-bold text-brand-800 md:text-4xl">{title}</h2>
+<div
+  class:list={[
+    'mb-[2.75rem]',
+    centered && 'mx-auto max-w-[620px] text-center',
+    className,
+  ]}
+>
+  {eyebrow && <Eyebrow tone={tone === 'dark' ? 'accent' : 'accent'}>{eyebrow}</Eyebrow>}
+  <h2 class:list={['text-display-md', tone === 'dark' && 'text-white']}>{title}</h2>
   {subtitle && (
-    <p class="mx-auto mt-3 max-w-3xl text-lg text-brand-900/75">{subtitle}</p>
+    <p class:list={['mt-[0.6rem] text-[0.95rem]', tone === 'dark' ? 'text-white/85' : 'text-muted']}>
+      {subtitle}
+    </p>
   )}
 </div>

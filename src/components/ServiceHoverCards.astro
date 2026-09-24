@@ -1,0 +1,85 @@
+---
+/*
+ * .svc-grid / .svc-card from the mockup.
+ *
+ * Desktop: square cards; the hovered one grows to flex 1.7 while its siblings
+ * shrink, and four descendants animate with it — hence `group` + `group-hover`.
+ * Below 961px the cards stack and sit permanently open, so the mobile classes
+ * are the open state and the `lg:` classes fold them back up.
+ */
+interface Card {
+  title: string;
+  description: string;
+  clip: string;
+  panel: 'cream' | 'accent' | 'mint';
+  cropTop?: boolean;
+  href: string;
+  clipAlt: string;
+}
+
+interface Props {
+  cards: readonly Card[];
+}
+
+const { cards } = Astro.props;
+
+const panels = {
+  cream: 'bg-sand',
+  accent: 'bg-accent',
+  mint: 'bg-mint',
+};
+---
+
+<div class="flex flex-col gap-[1.5rem] lg:flex-row lg:items-start lg:gap-[2rem]">
+  {
+    cards.map((card) => (
+      <div
+        class="group relative min-h-[420px] w-full overflow-hidden rounded-theme bg-brand-900 lg:aspect-square lg:min-h-0 lg:w-auto lg:flex-1 lg:transition-[flex] lg:duration-700 lg:ease-swoop lg:hover:flex-[1.7_1.7_0%]"
+      >
+        {/* Overscans by 1px so the card's dark background can't show through as
+            a hairline seam when flex gives the card a fractional width. */}
+        <video
+          src={`/videos/${card.clip}.mp4`}
+          poster={`/videos/${card.clip}.webp`}
+          class:list={[
+            'absolute -inset-px z-0 h-[calc(100%+2px)] w-[calc(100%+2px)] object-cover',
+            card.cropTop && 'object-top',
+          ]}
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          aria-label={card.clipAlt}
+        />
+
+        <div
+          class:list={[
+            'relative z-[1] m-[1.5rem] mt-[12rem] rounded-[4px] pb-[2rem] pl-[1.75rem] pr-[5.5rem] pt-[2rem] text-left text-brand-900',
+            'lg:absolute lg:inset-x-[1rem] lg:bottom-[1rem] lg:m-0 lg:px-[1.4rem] lg:py-[1rem] lg:text-center lg:transition-[padding] lg:duration-700 lg:ease-swoop',
+            'lg:group-hover:pb-[1.5rem] lg:group-hover:pl-[1.6rem] lg:group-hover:pr-[5rem] lg:group-hover:pt-[1.6rem] lg:group-hover:text-left',
+            panels[card.panel],
+          ]}
+        >
+          <h3 class="text-[1.15rem] font-medium leading-[1.2] lg:transition-[font-size] lg:duration-700 lg:ease-swoop lg:group-hover:text-[1.9rem]">
+            {card.title}
+          </h3>
+          <p
+            class="mt-[1.5rem] text-[0.88rem] leading-[1.5] lg:mt-0 lg:max-h-0 lg:overflow-hidden lg:opacity-0 lg:transition-[max-height,opacity,margin-top] lg:duration-700 lg:ease-swoop lg:group-hover:mt-[1.1rem] lg:group-hover:max-h-[200px] lg:group-hover:opacity-100"
+          >
+            {card.description}
+          </p>
+          {/* Visible on touch devices, where the mockup's hover reveal would
+              leave a focusable but invisible link. */}
+          <a
+            href={card.href}
+            aria-label={`Learn more about ${card.title}`}
+            class="absolute bottom-[1rem] right-[1.1rem] grid h-[48px] w-[48px] place-items-center rounded-full border-[0.5px] border-brand-900 text-[1.15rem] transition-[transform,opacity] duration-300 lg:scale-[0.6] lg:opacity-0 lg:group-hover:rotate-45 lg:group-hover:scale-100 lg:group-hover:opacity-100"
+          >
+            <span aria-hidden="true">↑</span>
+          </a>
+        </div>
+      </div>
+    ))
+  }
+</div>

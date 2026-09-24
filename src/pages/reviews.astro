@@ -1,5 +1,7 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
 import ReviewsBlock from '../components/ReviewsBlock.astro';
 import CTABanner from '../components/CTABanner.astro';
 import { site } from '../config/site';
@@ -8,18 +10,19 @@ import { site } from '../config/site';
 <PageLayout
   title={`Reviews | ${site.name}`}
   description={`Read Google reviews for ${site.name} — professional stump grinding in Metro Detroit.`}
-  heroTitle="Google Reviews"
-  heroSubtitle="What customers are saying about our stump grinding services."
+  heroTitle="Google reviews"
+  heroEyebrow="Reviews"
+  heroDescription="What customers are saying about our stump grinding services."
 >
-  <section class="section-padding">
-    <div class="container-page">
+  <Section reveal class="bg-brand-50">
+    <Container>
       <ReviewsBlock showHeading={false} />
-    </div>
-  </section>
+    </Container>
+  </Section>
 
   <CTABanner
     title="Ready to join our happy customers?"
-    description="Request a free estimate today."
+    description="Request a free estimate today — no obligation."
     href="/contact"
   />
 </PageLayout>

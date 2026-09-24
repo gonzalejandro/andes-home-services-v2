@@ -1,0 +1,26 @@
+---
+/*
+ * .card and its .card--media variant. Pass a `media` slot for the image or
+ * clip frame above the body.
+ */
+interface Props {
+  class?: string;
+  href?: string;
+  /** Renders the padding-free media layout; fill the `media` slot. */
+  media?: boolean;
+}
+
+const { class: className, href, media = false } = Astro.props;
+
+const base =
+  'rounded-theme border border-hairline bg-white shadow-soft transition-[transform,box-shadow] duration-200 hover:-translate-y-[4px] hover:shadow-lift';
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag
+  href={href}
+  class:list={[base, media ? 'flex flex-col overflow-hidden' : 'p-[1.75rem]', className]}
+>
+  {media && <slot name="media" />}
+  {media ? <div class="p-[1.75rem]"><slot /></div> : <slot />}
+</Tag>

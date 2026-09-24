@@ -1,20 +1,58 @@
 ---
-import { site } from '../config/site';
+import { Image } from 'astro:assets';
+import logo from '../assets/andes-stump-grinding.png';
+import { site, footerNavLinks } from '../config/site';
+import Container from './Container.astro';
+import Button from './Button.astro';
 import SocialLinks from './SocialLinks.astro';
+
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-white/10 bg-brand-900 py-8 text-center text-white">
-  <div class="container-page space-y-3">
-    <SocialLinks class="justify-center" />
-    <p class="font-medium">&copy; {year} {site.name}. All rights reserved.</p>
-    <p class="text-sm text-white/80">
-      <a href={`mailto:${site.email}`} class="hover:text-white">{site.email}</a>
-      {' · '}
-      <a href={`tel:${site.phoneTel}`} class="hover:text-white">{site.phone}</a>
-    </p>
-    <p class="text-xs text-white/60">
-      Serving Macomb, Oakland, and Wayne counties from {site.location.city}, {site.location.region}
-    </p>
-  </div>
+<footer class="bg-brand-900 text-[0.9rem] text-white/80">
+  {/* Sides take their natural width; the CTA is absolutely centred on the page. */}
+  <Container
+    class="relative flex flex-col items-center gap-[3rem] py-[4rem] text-center lg:flex-row lg:items-stretch lg:justify-between lg:text-left"
+  >
+    <div class="flex flex-col items-center gap-[0.5rem] lg:items-start">
+      {/* Sized so the mark spans the row of social icons below it; the negative
+          margins trim the PNG's built-in padding. */}
+      <Image
+        src={logo}
+        alt={site.name}
+        class="-mb-[30px] -mt-[26px] h-[200px] w-auto brightness-0 invert lg:-ml-[22px] lg:self-start"
+      />
+      <SocialLinks />
+    </div>
+
+    <div
+      class="px-[1rem] text-center lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2"
+    >
+      <h2 class="mb-[0.75rem] text-display-md text-white">Ready to lose that stump?</h2>
+      <p class="mx-auto mb-[1.5rem] text-[0.85rem] opacity-85 lg:whitespace-nowrap">
+        Call, text, send us photos of your problem and we'll get right back to you.
+      </p>
+      <Button href="/contact" variant="light" size="lg">Request a Free Estimate</Button>
+    </div>
+
+    <div
+      class="-mb-[10px] flex flex-col items-center gap-[2rem] pt-[10px] lg:items-end lg:justify-between"
+    >
+      <nav class="flex flex-col items-center gap-[0.45rem] lg:items-end" aria-label="Footer navigation">
+        {
+          footerNavLinks.map((link) => (
+            <a href={link.href} class="transition-colors hover:text-white">
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+      <div class="text-center text-[0.72rem] lg:whitespace-nowrap lg:text-right">
+        <p>
+          &copy; {year} {site.name} &middot; {site.location.city}, {site.location.region} &middot;
+          {site.phone}
+        </p>
+      </div>
+    </div>
+  </Container>
 </footer>

@@ -1,5 +1,9 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/Container.astro';
+import Section from '../../components/Section.astro';
+import Card from '../../components/Card.astro';
+import CheckList from '../../components/CheckList.astro';
 import CTABanner from '../../components/CTABanner.astro';
 import { serviceAreas } from '../../data/serviceAreas';
 import { site } from '../../config/site';
@@ -17,23 +21,23 @@ const { area } = Astro.props;
 <PageLayout
   title={`Stump Grinding in ${area.name} | ${site.name}`}
   description={`${site.name} provides professional stump grinding in ${area.name}, Michigan. Free estimates, fully insured.`}
-  heroTitle={`Stump Grinding in ${area.name}`}
-  heroSubtitle={`Professional stump removal serving ${area.county} County and surrounding communities.`}
+  heroTitle={`Stump grinding in ${area.name}`}
+  heroEyebrow="Service Area"
+  heroDescription={`Professional stump removal serving ${area.county} County and surrounding communities.`}
 >
-  <section class="section-padding">
-    <div class="container-page mx-auto max-w-3xl space-y-6">
-      <p class="text-lg text-brand-900/75">{area.description}</p>
-      <div class="card">
-        <h2 class="text-xl font-bold text-brand-800">What we offer in {area.name}</h2>
-        <ul class="mt-4 list-disc space-y-2 pl-5 text-brand-900/75">
-          {area.highlights.map((highlight) => <li>{highlight}</li>)}
-        </ul>
-      </div>
-      <p class="text-sm text-brand-900/60">
-        Outside {area.name}? We may still be able to help — a travel fee may apply for locations beyond our standard service area.
+  <Section reveal>
+    <Container class="mx-auto grid max-w-[800px] gap-[2rem]">
+      <p class="text-muted">{area.description}</p>
+      <Card>
+        <h3 class="mb-[0.4rem]">What we offer in {area.name}</h3>
+        <CheckList items={area.highlights} />
+      </Card>
+      <p class="text-[0.85rem] text-muted">
+        Outside {area.name}? We may still be able to help — a travel fee may apply for locations
+        beyond our standard service area.
       </p>
-    </div>
-  </section>
+    </Container>
+  </Section>
 
   <CTABanner
     title={`Request service in ${area.name}`}

@@ -1,0 +1,36 @@
+---
+interface Props {
+  steps: readonly { title: string; description: string }[];
+  class?: string;
+}
+
+const { steps, class: className } = Astro.props;
+
+// Five across on desktop needs slightly smaller text and a wider gap.
+const five = steps.length === 5;
+---
+
+<ol
+  class:list={[
+    'grid gap-[2rem] sm:grid-cols-2',
+    five ? 'xl:grid-cols-5 xl:gap-[2.25rem]' : 'lg:grid-cols-4',
+    className,
+  ]}
+>
+  {
+    steps.map((step, index) => (
+      <li class="text-center">
+        <span
+          class="mb-[0.9rem] inline-grid h-[48px] w-[48px] place-items-center rounded-full bg-brand-900 text-[1.2rem] font-bold text-white"
+          aria-hidden="true"
+        >
+          {index + 1}
+        </span>
+        <h3 class:list={['mb-[0.4rem]', five && 'text-[1rem]']}>{step.title}</h3>
+        <p class:list={['text-muted', five ? 'text-[0.88rem] leading-[1.55]' : 'text-[0.93rem]']}>
+          {step.description}
+        </p>
+      </li>
+    ))
+  }
+</ol>

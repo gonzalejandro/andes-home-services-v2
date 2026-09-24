@@ -1,7 +1,11 @@
 ---
 import { Image } from 'astro:assets';
 import PageLayout from '../layouts/PageLayout.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
 import SectionHeading from '../components/SectionHeading.astro';
+import Card from '../components/Card.astro';
+import CardMedia from '../components/CardMedia.astro';
 import CTABanner from '../components/CTABanner.astro';
 import { galleryImages } from '../data/gallery';
 import { getInstagramFeedWithRefresh } from '../lib/instagram-cache';
@@ -14,80 +18,83 @@ const instagramVideos = getVideos(await getInstagramFeedWithRefresh());
 <PageLayout
   title={`Gallery | ${site.name}`}
   description="Photos of professional stump grinding equipment and projects across Metro Detroit."
-  heroTitle="Project Gallery"
-  heroSubtitle="Professional equipment and real stump grinding work."
+  heroTitle="Project gallery"
+  heroEyebrow="Our Work"
+  heroDescription="Professional equipment and real stump grinding work."
 >
-  <section class="section-padding">
-    <div class="container-page">
+  <Section reveal>
+    <Container>
       <SectionHeading
-        title="Our Work"
-        subtitle="Add before/after photos here as you collect them from the field."
+        eyebrow="Gallery"
+        title="Our work"
+        subtitle="Equipment and projects from across Metro Detroit."
       />
-      <div class="grid gap-6 sm:grid-cols-2">
+      <div class="grid gap-[1.5rem] sm:grid-cols-2">
         {
           galleryImages.map((image) => (
-            <figure class="card overflow-hidden p-0">
-              <Image
-                src={image.src}
-                alt={image.alt}
-                class="h-64 w-full object-cover"
-                loading="lazy"
-              />
-              <figcaption class="p-4 text-sm font-medium text-brand-900/75">
-                {image.caption}
-              </figcaption>
-            </figure>
+            <Card media>
+              <CardMedia slot="media">
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  class="h-full w-full animate-hero-zoom object-cover"
+                  loading="lazy"
+                />
+              </CardMedia>
+              <p class="text-[0.93rem] font-medium text-muted">{image.caption}</p>
+            </Card>
           ))
         }
       </div>
-    </div>
-  </section>
+    </Container>
+  </Section>
 
   {
     instagramVideos.length > 0 && (
-      <section class="section-padding pt-0">
-        <div class="container-page">
+      <Section tone="alt" reveal>
+        <Container>
           <SectionHeading
+            eyebrow="Instagram"
             title="From Instagram"
             subtitle="Recent stump grinding videos from our Instagram."
           />
-          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="grid gap-[1.5rem] sm:grid-cols-2 lg:grid-cols-3">
             {instagramVideos.map((video) => (
-              <figure class="card overflow-hidden p-0">
-                <video
-                  src={video.mediaUrl}
-                  poster={video.thumbnailUrl}
-                  class="aspect-[9/16] w-full bg-black object-cover"
-                  controls
-                  playsinline
-                  preload="none"
-                />
-                <figcaption class="flex items-center justify-between gap-3 p-4 text-sm">
+              <Card media>
+                <div slot="media" class="aspect-[9/16] overflow-hidden bg-brand-900">
+                  <video
+                    src={video.mediaUrl}
+                    poster={video.thumbnailUrl}
+                    class="h-full w-full object-cover"
+                    controls
+                    playsinline
+                    preload="none"
+                  />
+                </div>
+                <div class="flex items-center justify-between gap-[0.75rem] text-[0.85rem]">
                   {video.caption && (
-                    <span class="line-clamp-2 font-medium text-brand-900/75">
-                      {video.caption}
-                    </span>
+                    <span class="line-clamp-2 font-medium text-muted">{video.caption}</span>
                   )}
                   <a
                     href={video.permalink}
                     target="_blank"
-                    rel="noopener"
-                    class="shrink-0 font-semibold text-brand-700 hover:text-brand-900"
+                    rel="noopener noreferrer"
+                    class="shrink-0 font-semibold text-brand-900 underline underline-offset-2 hover:text-accent"
                   >
                     View on Instagram
                   </a>
-                </figcaption>
-              </figure>
+                </div>
+              </Card>
             ))}
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
     )
   }
 
   <CTABanner
     title="Want results like this on your property?"
-    description="Send us a few details and we will provide a free estimate."
+    description="Send us a few details and we'll provide a free estimate."
     href="/contact"
   />
 </PageLayout>

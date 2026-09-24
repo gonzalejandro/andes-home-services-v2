@@ -1,0 +1,102 @@
+---
+/*
+ * All the .btn-* variants from the mockup in one place.
+ *
+ * `onLight` replaces the mockup's `.on-light` ancestor selector: the primary
+ * button's hover outline is white over photography but dark green on light
+ * backgrounds. Tailwind has no parent selector, so the context is a prop.
+ */
+interface Props {
+  variant?: 'primary' | 'ghost' | 'ghostDark' | 'outline' | 'blue' | 'light' | 'solid';
+  size?: 'md' | 'lg';
+  href?: string;
+  type?: 'button' | 'submit';
+  block?: boolean;
+  arrow?: boolean;
+  onLight?: boolean;
+  class?: string;
+  'aria-label'?: string;
+  disabled?: boolean;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  type = 'button',
+  block = false,
+  arrow = false,
+  onLight = false,
+  class: className,
+  disabled,
+  ...rest
+} = Astro.props;
+
+const base =
+  'group inline-block cursor-pointer whitespace-nowrap rounded-full border-[0.5px] font-medium transition-[background-color,color,border-color] duration-200';
+// No border-color in the base: every variant sets its own, and a base
+// `border-transparent` would win or lose by CSS order rather than by intent.
+
+const variants = {
+  // Solid dark green; becomes outlined on hover.
+  primary: [
+    'border-brand-900 bg-brand-900 uppercase tracking-[0.06em] text-white hover:bg-transparent',
+    onLight ? 'hover:border-brand-900 hover:text-brand-900' : 'hover:border-white hover:text-white',
+  ],
+  // Transparent with a thin white outline; fills dark green on hover.
+  ghost: 'border-white bg-transparent text-white hover:border-brand-900 hover:bg-brand-900',
+  // Same, on a page with no photo banner.
+  ghostDark:
+    'border-brand-900 bg-transparent text-brand-900 hover:border-brand-900 hover:bg-brand-900 hover:text-white',
+  // Outlined green on light backgrounds; fills green on hover.
+  outline: 'border-brand-900 bg-transparent text-brand-900 hover:bg-brand-900 hover:text-white',
+  // Accent fill with green text; goes dark green on hover.
+  blue: 'border-accent bg-accent text-brand-900 hover:border-brand-900 hover:bg-brand-900 hover:text-white',
+  // Cream fill with green text (footer CTA).
+  light: 'border-sand bg-sand text-brand-900 hover:border-white hover:bg-brand-900 hover:text-white',
+  // Solid dark green for light backgrounds.
+  solid: 'border-brand-900 bg-brand-900 text-white hover:border-brand-800 hover:bg-brand-800',
+};
+
+const sizes = {
+  md: 'px-[1.2rem] py-[0.6rem] text-[0.85rem]',
+  lg: 'px-[1.6rem] py-[0.8rem] text-[0.95rem]',
+};
+
+const classes = [
+  base,
+  variants[variant],
+  sizes[size],
+  block && 'block w-full text-center',
+  disabled && 'cursor-not-allowed opacity-60',
+  className,
+];
+---
+
+{
+  href ? (
+    <a href={href} class:list={classes} {...rest}>
+      <slot />
+      {arrow && (
+        <span
+          class="ml-[0.5rem] inline-block transition-transform duration-200 group-hover:translate-x-1"
+          aria-hidden="true"
+        >
+          →
+        </span>
+      )}
+    </a>
+  ) : (
+    <button type={type} class:list={classes} disabled={disabled} {...rest}>
+      <slot />
+      {arrow && (
+        <span
+          class="ml-[0.5rem] inline-block transition-transform duration-200 group-hover:translate-x-1"
+          aria-hidden="true"
+        >
+          →
+        </span>
+      )}
+    </button>
+  )
+}

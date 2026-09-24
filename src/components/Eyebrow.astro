@@ -1,0 +1,26 @@
+---
+// .eyebrow — the small uppercase label above a heading.
+interface Props {
+  /** accent on light sections, light over photography. */
+  tone?: 'accent' | 'light' | 'banner';
+  class?: string;
+}
+
+const { tone = 'accent', class: className } = Astro.props;
+
+const tones = {
+  accent: 'text-accent',
+  light: 'text-white/75',
+  banner: 'text-white/80',
+};
+---
+
+<p
+  class:list={[
+    'mb-[0.6rem] font-display text-eyebrow font-semibold uppercase',
+    tones[tone],
+    className,
+  ]}
+>
+  <slot />
+</p>

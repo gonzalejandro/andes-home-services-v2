@@ -1,43 +1,146 @@
 ---
+import { Image } from 'astro:assets';
+import howToMeasure from '../../assets/how-to-measure.jpg';
 import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/Container.astro';
+import Section from '../../components/Section.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
-import ServiceCard from '../../components/ServiceCard.astro';
-import CTABanner from '../../components/CTABanner.astro';
-import { services } from '../../data/services';
+import Card from '../../components/Card.astro';
+import CardMedia from '../../components/CardMedia.astro';
+import Steps from '../../components/Steps.astro';
+import CheckList from '../../components/CheckList.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import Button from '../../components/Button.astro';
+import { capabilities, processSteps, services } from '../../data/services';
 import { site } from '../../config/site';
+
+const crops = {
+  top: 'object-top',
+  high: 'object-[center_38%]',
+  low: 'object-[center_62%]',
+};
 ---
 
 <PageLayout
   title={`Services | ${site.name}`}
   description="Professional stump grinding services in Metro Detroit. Fully insured, professional equipment, free estimates."
-  heroTitle="Our Services"
-  heroSubtitle="Fast, safe stump removal for homeowners and contractors."
+  heroTitle="Stump grinding & more"
+  heroEyebrow="Services"
+  heroDescription="One crew, one machine, one visit. We handle everything from a single backyard stump to full lot clearing."
 >
-  <section class="section-padding">
-    <div class="container-page">
-      <SectionHeading
-        title="What We Offer"
-        subtitle="Every job is handled with professional stump grinding equipment and a fully insured crew."
-      />
-      <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+  <Section>
+    <Container>
+      <div class="grid gap-[1.5rem] sm:grid-cols-2 lg:grid-cols-3">
         {
-          services.map((service) => (
-            <ServiceCard
-              title={service.title}
-              description={service.description}
-              image={service.image}
-              imageAlt={service.imageAlt}
-              href={`/services/${service.slug}`}
-            />
+          capabilities.map((item) => (
+            <Card media>
+              <CardMedia short slot="media">
+                <video
+                  src={`/videos/${item.clip}.mp4`}
+                  poster={`/videos/${item.clip}.webp`}
+                  class:list={['h-full w-full object-cover', crops[item.crop]]}
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  aria-label={item.clipAlt}
+                />
+              </CardMedia>
+              <h3 class="mb-[0.4rem]">
+                <span class="mr-[0.45rem] align-[-0.05em] text-[1.05em]" aria-hidden="true">
+                  {item.emoji}
+                </span>
+                {item.title}
+              </h3>
+              <p class="text-[0.93rem] text-muted">{item.description}</p>
+            </Card>
           ))
         }
       </div>
-    </div>
-  </section>
+    </Container>
+  </Section>
 
-  <CTABanner
-    title="Need a quote?"
-    description="Tell us about your stumps and we will follow up with a free estimate."
-    href="/contact"
-  />
+  {/* The six cards above are capabilities and use cases; these three are the
+      service lines with pages of their own, so the hub page links to each. */}
+  <Section reveal>
+    <Container>
+      <SectionHeading
+        eyebrow="What We Offer"
+        title="Our core services"
+        subtitle="Three service lines — read more about any of them."
+      />
+      <div class="grid gap-[1.5rem] sm:grid-cols-2 lg:grid-cols-3">
+        {
+          services.map((service) => (
+            <Card media href={`/services/${service.slug}`} class="group">
+              <CardMedia short slot="media">
+                <video
+                  src={`/videos/${service.clip}.mp4`}
+                  poster={`/videos/${service.clip}.webp`}
+                  class:list={[
+                    'h-full w-full object-cover',
+                    'cropTop' in service && service.cropTop && 'object-top',
+                  ]}
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  aria-label={service.clipAlt}
+                />
+              </CardMedia>
+              <h3 class="mb-[0.4rem]">{service.title}</h3>
+              <p class="text-[0.93rem] text-muted">{service.shortDescription}</p>
+              <span class="mt-[1rem] inline-block text-[0.9rem] font-semibold text-brand-900">
+                Learn more
+                <span
+                  class="inline-block transition-transform duration-200 group-hover:translate-x-1"
+                  aria-hidden="true"
+                >
+                  →
+                </span>
+              </span>
+            </Card>
+          ))
+        }
+      </div>
+    </Container>
+  </Section>
+
+  <Section tone="alt" reveal>
+    <Container>
+      <SectionHeading eyebrow="Simple Process" title="How it works" />
+      <Steps steps={processSteps} />
+    </Container>
+  </Section>
+
+  <Section reveal id="how-to-measure">
+    <Container class="grid items-center gap-[3rem] lg:grid-cols-2">
+      <Image
+        src={howToMeasure}
+        alt="Tree stump showing the wrong measurement across the top and the correct measurement across the widest point at the base"
+        class="w-full rounded-theme shadow-soft"
+        loading="lazy"
+      />
+      <div>
+        <Eyebrow>Proper Measurement</Eyebrow>
+        <h2 class="text-display-md">How to measure a stump?</h2>
+        <p class="mt-[1rem] text-muted">
+          This is the proper way to ensure you measure your stumps properly to get an accurate quote
+          with no surprises.
+        </p>
+        <CheckList
+          items={[
+            'Measure the widest point of the stump, not just the top.',
+            'Make sure to include any exposed roots.',
+            'Incorrect measurements may result in differences in pricing and unexpected increased costs as they could affect labour time.',
+          ]}
+          circles
+          top
+        />
+        <Button href="/contact" variant="outline" size="lg">Get a free quote</Button>
+      </div>
+    </Container>
+  </Section>
 </PageLayout>

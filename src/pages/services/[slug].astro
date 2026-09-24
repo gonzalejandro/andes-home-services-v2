@@ -1,6 +1,10 @@
 ---
-import { Image } from 'astro:assets';
 import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/Container.astro';
+import Section from '../../components/Section.astro';
+import CheckList from '../../components/CheckList.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import Button from '../../components/Button.astro';
 import CTABanner from '../../components/CTABanner.astro';
 import { services } from '../../data/services';
 import { site } from '../../config/site';
@@ -19,29 +23,35 @@ const { service } = Astro.props;
   title={`${service.title} | ${site.name}`}
   description={service.description}
   heroTitle={service.title}
-  heroSubtitle={service.shortDescription}
-  heroImage={service.image}
+  heroEyebrow="Services"
+  heroDescription={service.shortDescription}
 >
-  <section class="section-padding">
-    <div class="container-page grid items-start gap-10 lg:grid-cols-2">
-      <div class="space-y-4 text-lg text-brand-900/75">
-        <p>{service.description}</p>
-        <ul class="list-disc space-y-2 pl-5">
-          {service.highlights.map((highlight) => <li>{highlight}</li>)}
-        </ul>
+  <Section reveal>
+    <Container class="grid items-center gap-[3rem] lg:grid-cols-2">
+      {/* The looping clip from the home-page card, reused as the lead visual. */}
+      <video
+        src={`/videos/${service.clip}.mp4`}
+        poster={`/videos/${service.clip}.webp`}
+        class="aspect-[4/3] w-full rounded-theme object-cover shadow-soft"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-label={service.clipAlt}></video>
+      <div>
+        <Eyebrow>What's Included</Eyebrow>
+        <h2 class="text-display-md">{service.title}</h2>
+        <p class="mt-[1rem] text-muted">{service.description}</p>
+        <CheckList items={service.highlights} circles top />
+        <Button href="/contact" variant="outline" size="lg">Get a free quote</Button>
       </div>
-      <Image
-        src={service.image}
-        alt={service.imageAlt}
-        class="rounded-2xl shadow-lg"
-        loading="lazy"
-      />
-    </div>
-  </section>
+    </Container>
+  </Section>
 
   <CTABanner
     title={`Get a free ${service.title.toLowerCase()} estimate`}
-    description="Share your project details and we will get back to you quickly."
+    description="Share your project details and we'll get back to you quickly."
     href="/contact"
   />
 </PageLayout>

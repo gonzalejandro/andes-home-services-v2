@@ -3,7 +3,7 @@ import { formatRelativePublishTime, type GoogleReview } from '@/lib/reviews';
 
 function Stars({ rating }: { rating: number }) {
   return (
-    <div className="flex gap-0.5 text-amber-500" aria-label={`${rating} out of 5 stars`}>
+    <div className="flex gap-[0.125rem] text-amber-500" aria-label={`${rating} out of 5 stars`}>
       {Array.from({ length: 5 }).map((_, index) => (
         <span key={index}>{index < rating ? '★' : '☆'}</span>
       ))}
@@ -42,7 +42,7 @@ function AuthorAvatar({ name, photoUri }: { name: string; photoUri?: string }) {
 
   if (!photoUri || failed) {
     return (
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-800">
+      <div className="flex h-[2.5rem] w-[2.5rem] shrink-0 items-center justify-center rounded-full bg-brand-100 font-semibold text-brand-900">
         {name.charAt(0)}
       </div>
     );
@@ -58,7 +58,7 @@ function AuthorAvatar({ name, photoUri }: { name: string; photoUri?: string }) {
       decoding="async"
       referrerPolicy="no-referrer"
       onError={() => setFailed(true)}
-      className="h-10 w-10 shrink-0 rounded-full object-cover"
+      className="h-[2.5rem] w-[2.5rem] shrink-0 rounded-full object-cover"
     />
   );
 }
@@ -73,8 +73,8 @@ function ReviewCard({ review }: { review: GoogleReview }) {
     <article
       className={
         expanded
-          ? 'card flex max-h-96 w-[min(100%,22rem)] shrink-0 snap-start flex-col overflow-y-auto sm:w-80'
-          : 'card flex min-h-64 w-[min(100%,22rem)] shrink-0 snap-start flex-col sm:w-80'
+          ? 'flex w-[min(100%,22rem)] shrink-0 snap-start flex-col rounded-[1rem] border border-hairline bg-white p-[1.5rem] shadow-[0_1px_2px_rgb(0_0_0/0.05)] sm:w-[20rem] max-h-[24rem] min-h-0 overflow-y-auto'
+          : 'flex w-[min(100%,22rem)] shrink-0 snap-start flex-col rounded-[1rem] border border-hairline bg-white p-[1.5rem] shadow-[0_1px_2px_rgb(0_0_0/0.05)] sm:w-[20rem] min-h-[16rem]'
       }
     >
       <div className="flex shrink-0 items-center gap-3">
@@ -83,16 +83,16 @@ function ReviewCard({ review }: { review: GoogleReview }) {
           {review.authorUri ? (
             <a
               href={review.authorUri}
-              className="block truncate font-semibold text-brand-800 hover:text-accent"
+              className="block truncate font-semibold text-brand-900 hover:text-brand-500"
               target="_blank"
               rel="noopener noreferrer"
             >
               {review.authorName}
             </a>
           ) : (
-            <p className="truncate font-semibold text-brand-800">{review.authorName}</p>
+            <p className="truncate font-semibold text-brand-900">{review.authorName}</p>
           )}
-          <p className="text-xs text-brand-900/60">{formatRelativePublishTime(review)}</p>
+          <p className="text-[0.8rem] text-muted">{formatRelativePublishTime(review)}</p>
         </div>
       </div>
       <div className="mt-2 shrink-0">
@@ -101,11 +101,11 @@ function ReviewCard({ review }: { review: GoogleReview }) {
       {hasText && (
         <div className="mt-2 shrink-0">
           {expanded ? (
-            <p className="whitespace-pre-line text-sm text-brand-900/75 [overflow-wrap:anywhere]">
+            <p className="whitespace-pre-line text-[0.9rem] leading-[1.5] text-muted [overflow-wrap:anywhere]">
               {review.text}
             </p>
           ) : (
-            <p className="line-clamp-4 text-sm text-brand-900/75 [overflow-wrap:anywhere]">
+            <p className="line-clamp-4 text-[0.9rem] leading-[1.5] text-muted [overflow-wrap:anywhere]">
               {review.text}
             </p>
           )}
@@ -114,14 +114,14 @@ function ReviewCard({ review }: { review: GoogleReview }) {
               type="button"
               onClick={() => setExpanded((current) => !current)}
               aria-expanded={expanded}
-              className="mt-2 block text-xs font-semibold text-accent hover:text-accent-dark"
+              className="mt-[0.5rem] block text-[0.8rem] font-semibold text-brand-500 hover:text-brand-900"
             >
               {expanded ? 'Show less' : 'Read more'}
             </button>
           )}
         </div>
       )}
-      <p className="mt-5 shrink-0 text-xs text-brand-900/50">Posted on Google</p>
+      <p className="mt-[1.25rem] shrink-0 text-[0.8rem] text-muted opacity-75">Posted on Google</p>
     </article>
   );
 }
@@ -221,7 +221,7 @@ function ReviewsCarousel({ reviews }: { reviews: GoogleReview[] }) {
 
   return (
     <div
-      className="flex items-center gap-3 sm:gap-4"
+      className="flex items-center gap-[1rem]"
       onMouseEnter={pause}
       onMouseLeave={resume}
       onFocusCapture={pause}
@@ -233,14 +233,14 @@ function ReviewsCarousel({ reviews }: { reviews: GoogleReview[] }) {
         onClick={() => scroll('left')}
         disabled={!canScrollLeft}
         aria-label="Previous reviews"
-        className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-brand-800 bg-white text-brand-800 shadow-sm transition hover:bg-brand-50 disabled:cursor-not-allowed disabled:border-brand-200 disabled:text-brand-200"
+        className="inline-flex h-[2.75rem] w-[2.75rem] shrink-0 items-center justify-center rounded-full border-2 border-brand-900 bg-white text-brand-900 shadow-sm transition-colors duration-150 hover:bg-[#e6efeb] disabled:cursor-not-allowed disabled:border-[#cdd8d0] disabled:bg-white disabled:text-[#cdd8d0]"
       >
         <ChevronIcon direction="left" />
       </button>
 
       <div
         ref={scrollerRef}
-        className="flex min-w-0 flex-1 items-start gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex min-w-0 flex-1 snap-x snap-mandatory items-start gap-[1.5rem] overflow-x-auto scroll-smooth pb-[0.5rem] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {reviews.map((review, index) => (
           <ReviewCard key={`${review.authorName}-${index}`} review={review} />
@@ -252,7 +252,7 @@ function ReviewsCarousel({ reviews }: { reviews: GoogleReview[] }) {
         onClick={() => scroll('right')}
         disabled={!canScrollRight}
         aria-label="Next reviews"
-        className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-brand-800 bg-white text-brand-800 shadow-sm transition hover:bg-brand-50 disabled:cursor-not-allowed disabled:border-brand-200 disabled:text-brand-200"
+        className="inline-flex h-[2.75rem] w-[2.75rem] shrink-0 items-center justify-center rounded-full border-2 border-brand-900 bg-white text-brand-900 shadow-sm transition-colors duration-150 hover:bg-[#e6efeb] disabled:cursor-not-allowed disabled:border-[#cdd8d0] disabled:bg-white disabled:text-[#cdd8d0]"
       >
         <ChevronIcon direction="right" />
       </button>

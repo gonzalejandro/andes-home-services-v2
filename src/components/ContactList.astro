@@ -1,0 +1,34 @@
+---
+import { site } from '../config/site';
+
+interface Props {
+  tone?: 'light' | 'dark';
+}
+
+const { tone = 'light' } = Astro.props;
+const dark = tone === 'dark';
+
+const label = 'font-display text-eyebrow font-semibold uppercase text-accent';
+const value = ['text-[1.05rem] font-semibold', dark ? 'text-white' : 'text-brand-900'];
+---
+
+<ul class="mt-[1.75rem] grid gap-[1.1rem]">
+  <li class="grid gap-[0.45rem]">
+    <strong class={label}>Free Estimates</strong>
+    <span class:list={value}>
+      {/* No newline before the comma, or it renders inside the underline. */}
+      <a
+        href="/services#how-to-measure"
+        class="underline underline-offset-2 transition-colors hover:text-accent"
+      >Check how to measure</a>, fill out the form and we'll reach back to you shortly.
+    </span>
+  </li>
+  <li class="grid gap-[0.45rem]">
+    <strong class={label}>Send your pictures through text</strong>
+    <a href={`tel:${site.phoneTel}`} class:list={[...value, 'hover:underline']}>{site.phone}</a>
+  </li>
+  <li class="grid gap-[0.45rem]">
+    <strong class={label}>Send your pictures through email</strong>
+    <a href={`mailto:${site.email}`} class:list={[...value, 'hover:underline']}>{site.email}</a>
+  </li>
+</ul>

@@ -1,199 +1,100 @@
 ---
-import { Image } from 'astro:assets';
-import stumpGrindingImg from '../assets/stump-grinding.webp';
+import homeHelp1 from '../assets/home-help.webp';
+import homeHelp2 from '../assets/home-help-2.webp';
+import homeHelp3 from '../assets/home-help-3.webp';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
 import Hero from '../components/Hero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
+import ServiceHoverCards from '../components/ServiceHoverCards.astro';
+import AreasCard from '../components/AreasCard.astro';
+import Carousel from '../components/Carousel.astro';
+import CheckList from '../components/CheckList.astro';
+import ContactList from '../components/ContactList.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Button from '../components/Button.astro';
 import ContactForm from '../components/ContactForm';
 import ReviewsBlock from '../components/ReviewsBlock.astro';
 import { site } from '../config/site';
-import { serviceAreas } from '../data/serviceAreas';
+import { services } from '../data/services';
 
-const benefits = ['Free quotes', 'Fully insured', 'Affordable pricing'];
+const cards = services.map((service) => ({
+  title: service.title,
+  description: service.description,
+  clip: service.clip,
+  clipAlt: service.clipAlt,
+  panel: service.panel,
+  cropTop: 'cropTop' in service ? service.cropTop : false,
+  // The mockup points every card at the services overview; the detail pages
+  // are a better destination now that they exist.
+  href: `/services/${service.slug}`,
+}));
+
+const carouselImages = [
+  { src: homeHelp1, alt: 'Stump grinder working at the base of a tree' },
+  { src: homeHelp2, alt: 'Operator grinding a stump next to a driveway' },
+  { src: homeHelp3, alt: 'Stump grinder parked beside a brick house' },
+];
 ---
 
 <BaseLayout>
-  {/* Set before paint so revealed titles never flash; if JS is off, they stay visible. */}
-  <script is:inline>
-    document.documentElement.classList.add('reveal-ready');
-  </script>
-
   <Hero
-    title={site.name}
-    subtitle="Professional stump grinding across Metro Detroit — quality workmanship you can trust."
-    ctaHref="#get-quote"
+    eyebrow="Serving Metro Detroit — Macomb, Oakland & Wayne Counties"
+    title="Hard on stumps.<br>Easy on you."
+    lead="Reliable stump grinding for homeowners, landscapers, and tree companies throughout Metro Detroit."
+    {/* Not "Licensed": stump grinding needs no state license in Michigan. */}
+    badges={['Fully Insured', 'Same-Week Service', '500+ Stumps Removed']}
   />
 
-  <section class="section-padding bg-white">
-    <div class="container-page grid items-center gap-10 lg:grid-cols-2">
-      <div>
-        <SectionHeading
-          title="Areas We Service"
-          subtitle={`Based in ${site.location.city}, proudly serving Metro Detroit and surrounding communities.`}
-          centered={false}
-          class="reveal"
-        />
-        <ul class="mt-6 space-y-4">
-          {
-            serviceAreas.map((area) => (
-              <li>
-                <a
-                  href={`/service-areas/${area.slug}`}
-                  class="group block rounded-xl border border-brand-200 bg-brand-50 p-4 transition hover:border-accent hover:shadow-md"
-                >
-                  <p class="text-lg font-semibold text-brand-800 group-hover:text-accent">
-                    {area.name}
-                  </p>
-                  <p class="mt-1 text-sm text-brand-900/75">
-                    {area.highlights.slice(0, 2).join(' · ')}
-                  </p>
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-        <a href="/service-areas" class="mt-6 inline-block font-semibold text-accent hover:text-accent-dark">
-          View all service areas →
-        </a>
+  {/* Sits above the areas section so its gradient fades in behind this one. */}
+  <section class="reveal relative z-[1] pb-[2rem] pt-[7rem]">
+    <Container>
+      <SectionHeading eyebrow="What We Do" title="Our services" class="mb-[4rem]" />
+      <ServiceHoverCards cards={cards} />
+      <div class="mt-[2.5rem] flex justify-center lg:justify-end">
+        <Button href="/services" variant="outline" arrow>More about what we do</Button>
       </div>
-
-      <div class="service-map-embed aspect-[4/3] w-full overflow-hidden rounded-2xl border border-brand-200 shadow-sm">
-        <iframe
-          src="https://www.google.com/maps/d/u/0/embed?mid=1hsOaBAeRsq_x1K9tG_F5QlvTkd9nQZA&ehbc=2E312F"
-          class="service-map-iframe w-full border-0"
-          allowfullscreen
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title={`${site.name} service areas`}
-        />
-      </div>
-    </div>
+    </Container>
   </section>
 
-  <section class="border-t border-brand-100 bg-brand-50">
-    <div class="container-page section-padding grid items-center gap-10 lg:grid-cols-2">
-      <Image
-        src={stumpGrindingImg}
-        alt="Professional stump grinding in progress"
-        class="w-full rounded-2xl shadow-lg"
-        loading="lazy"
-      />
+  {/* Pulled up under the services section so the mesh gradient fades in
+      gradually instead of starting at a hard edge. */}
+  <section id="areas" class="mesh-bg reveal -mt-[8rem] bg-cream pb-[3rem] pt-[12rem]">
+    <Container class="relative z-[1]">
+      <AreasCard counties={site.location.areaServed} />
+    </Container>
+  </section>
 
+  <Section reveal class="pt-[4rem]">
+    <Container class="grid items-center gap-[3rem] lg:grid-cols-2">
+      <Carousel images={carouselImages} label="Photos of our stump grinding work" />
       <div>
-        <h2 class="reveal text-3xl font-bold tracking-tight text-brand-800 md:text-4xl">
-          Need help stump grinding?
-        </h2>
-        <p class="mt-4 text-lg text-brand-900/75">
+        <Eyebrow>Why Choose Us?</Eyebrow>
+        <h2 class="text-display-md">Fast and affordable stump grinding</h2>
+        <p class="mt-[1rem] text-muted">
           From a single stump to a full property cleanup, we make removal fast, safe, and
           hassle-free.
         </p>
-        <ul class="mt-8 space-y-4">
-          {
-            benefits.map((benefit) => (
-              <li class="flex items-center gap-3">
-                <span
-                  class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent"
-                  aria-hidden="true"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    class="h-4 w-4"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                <span class="text-lg font-medium text-brand-900">{benefit}</span>
-              </li>
-            ))
-          }
-        </ul>
-        <a href="#get-quote" class="btn-primary mt-8">Get a Free Estimate</a>
+        <CheckList items={['Free quotes', 'Fully insured', 'Affordable pricing']} circles />
+        <Button href="/about" variant="outline" size="lg">More about us</Button>
       </div>
-    </div>
+    </Container>
+  </Section>
 
-    <div id="get-quote" class="scroll-mt-24 bg-brand-800 py-10 text-center text-white">
-      <p class="mb-2 text-sm font-medium uppercase tracking-widest text-brand-100">
-        Request your free quote
-      </p>
-      <a
-        href={`tel:${site.phoneTel}`}
-        class="reveal inline-block text-2xl font-bold tracking-wide transition hover:text-brand-100 md:text-3xl"
-      >
-        CALL OR TEXT {site.phone}
-      </a>
-      <p class="mt-3 text-base text-white/80">
-        …or fill out the form below and we'll get back to you.
-      </p>
-    </div>
-  </section>
-
-  <section class="section-padding bg-white">
-    <div class="container-page">
-      <SectionHeading
-        title="Or Request a Free Estimate Online"
-        subtitle="Prefer to write? Tell us about your project below and we'll get back to you with a quote."
-        class="reveal"
-      />
-      <div class="mx-auto mt-10 max-w-2xl">
-        <ContactForm client:load />
-        <p class="mt-4 text-center text-sm text-brand-900/60">
-          Outside Macomb, Oakland, or Wayne County? We can still help — a travel fee may apply.
-        </p>
+  <Section tone="dark" reveal id="get-quote">
+    <Container class="grid items-center gap-[3rem] lg:grid-cols-[1fr_1.2fr]">
+      <div>
+        <h2 class="text-display-xl text-white">Let's work together</h2>
+        <ContactList tone="dark" />
       </div>
-    </div>
-  </section>
+      <ContactForm client:load onDark />
+    </Container>
+  </Section>
 
-  <section class="section-padding border-t border-brand-100 bg-brand-50">
-    <div class="container-page">
+  <Section id="reviews" reveal class="border-t border-brand-100 bg-brand-50">
+    <Container>
       <ReviewsBlock />
-    </div>
-  </section>
+    </Container>
+  </Section>
 </BaseLayout>
-
-<script>
-  // Elements marked data-reveal-self manage their own reveal (e.g. React islands).
-  const reveals = document.querySelectorAll('.reveal:not([data-reveal-self])');
-
-  if (
-    reveals.length &&
-    'IntersectionObserver' in window &&
-    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  ) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        }
-      },
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.1 },
-    );
-
-    reveals.forEach((el) => observer.observe(el));
-  } else {
-    // No observer support or reduced motion: show everything immediately.
-    reveals.forEach((el) => el.classList.add('is-visible'));
-  }
-</script>
-
-<style>
-  /* Google My Maps always shows a title bar; crop it via overflow + offset */
-  .service-map-embed {
-    position: relative;
-  }
-
-  .service-map-iframe {
-    position: absolute;
-    left: 0;
-    top: -4rem;
-    height: calc(100% + 4rem);
-  }
-</style>

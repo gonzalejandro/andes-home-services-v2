@@ -1,0 +1,46 @@
+---
+import { site } from '../config/site';
+import Button from './Button.astro';
+
+interface Props {
+  counties: readonly string[];
+}
+
+const { counties } = Astro.props;
+---
+
+<div
+  class="grid items-center gap-[2rem] rounded-[24px] border-[0.5px] border-brand-900/25 bg-[rgb(235_235_235/0.25)] p-[2rem] transition-[transform,box-shadow] duration-200 hover:-translate-y-[4px] hover:shadow-lift lg:grid-cols-2 lg:gap-[1.5rem] lg:px-[4.5rem] lg:py-[2.5rem]"
+>
+  <div class="text-brand-900">
+    <h2 class="mb-[0.75rem] text-display-lg">Areas we service</h2>
+    <p class="mb-[1.25rem] opacity-80">
+      Based in {site.location.city}, proudly serving Metro Detroit<br class="hidden lg:inline" />
+      and surrounding communities.
+    </p>
+    {/* Non-clickable pills, same shape as the header button. */}
+    <ul class="mb-[1.75rem] flex flex-col items-start gap-[0.7rem]">
+      {
+        counties.map((county) => (
+          <li
+            class="rounded-full border-[0.5px] border-brand-900 px-[1.4rem] py-[0.6rem] text-[1rem] font-medium text-brand-900"
+          >
+            {county}
+          </li>
+        ))
+      }
+    </ul>
+    <Button href="/service-areas" variant="blue" arrow>View all service areas</Button>
+  </div>
+
+  <div class="relative aspect-[5/4] overflow-hidden rounded-[14px] bg-[#dcdcdc]">
+    {/* The My Maps embed always shows a title bar; shift it above the frame. */}
+    <iframe
+      src="https://www.google.com/maps/d/u/0/embed?mid=1hsOaBAeRsq_x1K9tG_F5QlvTkd9nQZA&ehbc=2E312F"
+      title={`${site.name} service areas`}
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      allowfullscreen
+      class="absolute left-0 top-[-64px] h-[calc(100%+64px)] w-full border-0"></iframe>
+  </div>
+</div>

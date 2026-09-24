@@ -1,4 +1,7 @@
 ---
+import Container from './Container.astro';
+import Button from './Button.astro';
+
 interface Props {
   title: string;
   description: string;
@@ -6,13 +9,13 @@ interface Props {
   cta?: string;
 }
 
-const { title, description, href, cta = 'Learn more' } = Astro.props;
+const { title, description, href, cta = 'Request a Free Estimate' } = Astro.props;
 ---
 
-<section class="bg-brand-700 text-white">
-  <div class="container-page py-12 text-center md:py-16">
-    <h2 class="text-3xl font-bold md:text-4xl">{title}</h2>
-    <p class="mx-auto mt-4 max-w-2xl text-lg text-white/90">{description}</p>
-    <a href={href} class="btn-primary mt-8">{cta}</a>
-  </div>
+<section class="bg-brand-900 text-white">
+  <Container class="py-[3.25rem] text-center sm:py-[4.5rem]">
+    <h2 class="mb-[0.75rem] text-display-md text-white">{title}</h2>
+    <p class="mx-auto mb-[1.5rem] max-w-[55ch] text-[0.9rem] opacity-85">{description}</p>
+    <Button href={href} variant="light" size="lg">{cta}</Button>
+  </Container>
 </section>

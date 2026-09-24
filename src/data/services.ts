@@ -4,6 +4,11 @@ import stumpGrinding from '../assets/stump-grinding.webp';
 export const services = [
   {
     slug: 'stump-grinding',
+    // Looping clip and panel colour for the home-page hover cards
+    clip: 'grinding4',
+    clipAlt: 'Stump grinder cutting a tree stump down below grade',
+    panel: 'cream' as const,
+    cropTop: true,
     title: 'Stump Grinding',
     shortDescription:
       'Professional stump removal to keep your property clean and safe. Fully insured.',
@@ -21,6 +26,10 @@ export const services = [
   },
   {
     slug: 'bush-stumps-roots-grinding',
+    // Looping clip and panel colour for the home-page hover cards
+    clip: 'grinding6',
+    clipAlt: 'Grinder clearing bush stumps and surface roots',
+    panel: 'accent' as const,
     title: 'Bush Stumps/Roots Grinding',
     shortDescription:
       'Grinding for tree stumps, bush stumps, and surface roots. Fast, safe, and fully insured.',
@@ -38,6 +47,10 @@ export const services = [
   },
   {
     slug: 'chip-removal',
+    // Looping clip and panel colour for the home-page hover cards
+    clip: 'cleanup2',
+    clipAlt: 'Crew hauling away grinding chips and tidying the work area',
+    panel: 'mint' as const,
     title: 'Chip Removal',
     shortDescription:
       'Wood chip cleanup after stump grinding so your yard is neat and ready to use.',
@@ -55,74 +68,93 @@ export const services = [
   },
 ];
 
-export const benefits = [
+
+
+/*
+ * Services-page capability cards. Each one plays a looping clip from
+ * public/videos; `crop` biases the frame so the machine stays in shot.
+ */
+export const capabilities = [
   {
-    icon: '⚡',
-    title: 'Fast & Efficient',
+    emoji: '🌳',
+    title: 'Residential Stump Grinding',
     description:
-      'We get the job done quickly and efficiently, saving you time and hassle. Most stumps can be removed in just a couple of hours.',
+      'Any size, any species, any location in your yard. We grind 6–12" below grade so you can plant, sod, or build right over it.',
+    clip: 'grinding5',
+    clipAlt: 'Stump grinder working next to a retaining wall in a residential yard',
+    crop: 'low' as const,
   },
   {
-    icon: '🛡️',
-    title: 'Fully Insured',
+    emoji: '🏗️',
+    title: 'Commercial & Lot Clearing',
     description:
-      'We are fully insured for your protection and peace of mind. You can trust us to handle your property with care.',
+      'Multiple stumps for developers, HOAs, and landscapers. Volume pricing available for 5+ stumps per visit.',
+    clip: 'cleanup1',
+    clipAlt: 'Crew member clearing grindings with a blower on a tree-lined street',
+    crop: 'low' as const,
   },
   {
-    icon: '🔧',
-    title: 'State-of-the-Art Equipment',
+    emoji: '🌱',
+    title: 'Root Chasing',
     description:
-      'We use professional-grade stump grinders to handle stumps of all sizes efficiently and safely.',
+      'Surface roots lifting your sidewalk or driveway? We trace and grind them out so they stop causing damage.',
+    clip: 'grinding3',
+    clipAlt: 'Grinding out roots close to a stone house wall',
+    crop: 'low' as const,
   },
   {
-    icon: '💰',
-    title: 'Competitive Pricing',
+    emoji: '🧹',
+    title: 'Cleanup & Backfill',
     description:
-      'Get a free estimate with no obligation. Our services are affordable and competitive.',
+      'We rake up the grindings, or haul them off and backfill with topsoil and seed so the spot disappears completely.',
+    clip: 'cleanup3',
+    clipAlt: 'Crew member raking and leveling the ground after grinding',
+    crop: 'low' as const,
   },
   {
-    icon: '✅',
-    title: 'Reliable Service',
+    emoji: '🚪',
+    title: 'Tight Access Jobs',
     description:
-      'We show up on time, do the job right the first time, and clean up after ourselves.',
+      'Our compact grinder fits through a 36" gate. Fenced backyards, side yards, and slopes are no problem.',
+    clip: 'clip2',
+    clipAlt: 'Compact stump grinder driving through a narrow side yard',
+    crop: 'top' as const,
   },
   {
-    icon: '🏠',
-    title: 'Local & Dependable',
+    emoji: '⚡',
+    title: 'Storm Damage Response',
     description:
-      'As a local business based in Ferndale, we understand the area and are committed to serving our community.',
+      "Tree already down? We'll take care of the stump quickly so your yard gets back to normal fast.",
+    clip: 'machine2',
+    clipAlt: 'Stump grinder being driven down a wet street after a winter storm',
+    crop: 'high' as const,
   },
 ];
 
-export const contractors = [
+export const processSteps = [
   {
-    icon: '🌳',
-    title: 'Tree Removal Companies',
+    title: 'You send us a photo',
     description:
-      'Many tree removal companies subcontract stump grinding. When removing a tree for a homeowner or industrial site, call us to grind up the stumps and create a fresh, clean site.',
+      "Text or email a picture of the stump, your address, and your name. We'll reply with a quote usually within the hour or 1 business day.",
   },
   {
-    icon: '🏗️',
-    title: 'Cement Contractors',
+    title: 'You get a free quote',
     description:
-      'Tree stumps or large roots can pose a problem when laying a foundation for new construction. Our stump grinders make short work of these obstacles in very little time.',
+      "When you're ready to move forward we schedule around you, including evenings, Saturdays and Sundays. You don't even need to be home.",
   },
   {
-    icon: '🚧',
-    title: 'Fence Companies',
+    title: 'We schedule MISS DIG',
     description:
-      'We can remove roots that are in the way of putting in a new fence. We can grind deep into the ground and create a hole for the fence post to go in.',
+      'We require MISS DIG to come out and mark any utility that might get in the way before grinding. This service is completely free of charge, booked by us and takes up to 3 business days.',
   },
   {
-    icon: '🌿',
-    title: 'Landscape Companies',
+    title: 'We perform the grinding',
     description:
-      'Old roots and pieces of long ago removed trees and shrubs can interfere with laying new sod or putting in new trees and shrubs. We grind up those obstacles and leave fresh turned soil.',
+      'A day after MISS DIG finishes marking all utilities, our crew shows up, grinds the stump below grade, and cleans up the area so everything looks nice and tidy.',
   },
   {
-    icon: '🏠',
-    title: 'Homeowners',
+    title: 'You enjoy your yard',
     description:
-      "Don't hurt your back trying to dig roots and stumps out yourself. Our services won't break your bank and we can have you back to your real project in no time.",
+      "Pay when the job's done: cash, card, mobile apps, or check. No deposits, no surprises.",
   },
 ];

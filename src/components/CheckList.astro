@@ -1,0 +1,50 @@
+---
+/*
+ * .check-list and its .check-list--circles variant.
+ * `circles` is the bolder home-page treatment: a tick inside a mint circle.
+ * `top` keeps that circle on the first line when an item wraps.
+ */
+interface Props {
+  items: readonly string[];
+  circles?: boolean;
+  top?: boolean;
+  class?: string;
+}
+
+const { items, circles = false, top = false, class: className } = Astro.props;
+---
+
+{
+  circles ? (
+    <ul
+      class:list={[
+        'mb-[2rem] mt-[1.5rem] grid gap-[1rem] text-[1rem] font-semibold text-brand-900',
+        className,
+      ]}
+    >
+      {items.map((item) => (
+        <li class:list={['flex gap-[0.9rem]', top ? 'items-start' : 'items-center']}>
+          <span
+            class:list={[
+              'grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full bg-brand-100 text-[0.95rem] font-bold text-brand-900',
+              top && '-mt-[0.2em]',
+            ]}
+            aria-hidden="true"
+          >
+            ✓
+          </span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <ul class:list={['mt-[1rem] grid gap-[0.6rem] text-[0.95rem] text-muted', className]}>
+      {items.map((item) => (
+        <li>
+          <span class="font-bold text-brand-500" aria-hidden="true">✔ </span>
+          {item}
+        </li>
+      ))}
+    </ul>
+  )
+}

@@ -1,87 +1,223 @@
 ---
 import { Image } from 'astro:assets';
+import aboutHero from '../assets/about-hero.webp';
+import aboutStory from '../assets/about-story.webp';
+import freeEstimates from '../assets/about-free-estimates.webp';
+import affordable from '../assets/about-affordable.webp';
+import fitsGates from '../assets/about-fits-gates.webp';
 import missDig from '../assets/miss-dig.png';
 import PageLayout from '../layouts/PageLayout.astro';
-import CTABanner from '../components/CTABanner.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Card from '../components/Card.astro';
+import CardMedia from '../components/CardMedia.astro';
+import CheckList from '../components/CheckList.astro';
+import ContactList from '../components/ContactList.astro';
+import Eyebrow from '../components/Eyebrow.astro';
 import { site } from '../config/site';
+
+const cities = [
+  'Ferndale',
+  'Royal Oak',
+  'Birmingham',
+  'Troy',
+  'Southfield',
+  'Warren',
+  'Sterling Heights',
+  'Detroit',
+];
+
+const differentiators = [
+  {
+    image: freeEstimates,
+    alt: 'Alejandro standing next to the stump grinder',
+    crop: 'object-[center_38%]',
+    title: 'Free estimates',
+    body: 'Text us some pictures and measurements, no need to schedule an in-person estimate or wait around.',
+    link: { href: '/services#how-to-measure', label: 'check how to measure' },
+  },
+  {
+    image: affordable,
+    alt: 'Truck towing the stump grinder on a trailer',
+    crop: 'object-[center_62%]',
+    title: 'Affordable grinding',
+    body: "We offer fair, competitive rates with no hidden fees. You'll know the full price up front, and you only pay when the job is done.",
+  },
+  {
+    image: fitsGates,
+    alt: 'Compact stump grinder parked in a narrow side yard next to a brick house',
+    crop: 'object-[center_62%]',
+    title: 'Fits through gates',
+    body: 'Our compact grinder fits through a 36" gate, so fenced backyards and tight side yards are no problem.',
+  },
+];
 ---
 
 <PageLayout
-  title={`About | ${site.name}`}
-  description={`Learn about ${site.name} — fully insured stump grinding based in ${site.location.city}, serving Metro Detroit.`}
-  heroTitle="About Us"
-  heroSubtitle="Local, dependable, and built on hard work."
+  title={`About Us | ${site.name}`}
+  description={`${site.name} is a locally owned stump grinding company based in ${site.location.city}, serving Macomb, Oakland, and Wayne counties.`}
+  heroTitle="A local business you can count on"
+  heroEyebrow="Who We Are"
+  heroDescription="Andes Stump Grinding is an owner-operated company out of Ferndale. We bring the right equipment, do the job right the first time, and leave your property ready for whatever comes next."
+  heroImage={aboutHero}
+  heroOverlay="side"
+  heroFocus="object-[center_60%]"
 >
-  <section class="section-padding">
-    <div class="container-page mx-auto max-w-3xl space-y-5 text-lg text-brand-900/75">
-      <p>
-        At {site.name}, we're proud to be Metro Detroit's trusted choice for professional stump
-        grinding. We combine reliable service, top-quality equipment, and skilled workmanship to make
-        every job fast, safe, and hassle-free.
-      </p>
-      <p>
-        Removing a stump on your own can be time-consuming, costly, and even dangerous without the
-        right tools. That's why we focus on giving homeowners and contractors a more efficient,
-        cost-effective solution — saving you the effort and ensuring the job is done right the
-        first time.
-      </p>
-      <p>
-        Whether it's one small stump or a full property cleanup, we treat every project with care
-        and attention to detail. Our mission is simple: leave your yard cleaner, safer, and ready
-        for what's next.
-      </p>
-      <p>We are <strong>fully insured</strong> for your peace of mind.</p>
-      <p>
-        <strong>{site.name} — local, dependable, and built on hard work.</strong>
-      </p>
-    </div>
-  </section>
-
-  <section class="section-padding bg-white">
-    <div class="container-page mx-auto max-w-3xl">
-      <div class="mb-8 grid grid-cols-[1fr_auto] items-center gap-4">
-        <div class="flex min-w-0 items-center gap-3">
-          <div class="shrink-0 text-4xl" aria-hidden="true">⚠️</div>
-          <h2 class="text-3xl font-bold text-brand-800 md:text-4xl">
-            Safety & Underground Utilities
-          </h2>
+  <Section>
+    <Container class="grid items-center gap-[3rem] lg:grid-cols-2">
+      <Image
+        src={aboutStory}
+        alt="Alejandro, owner of Andes Stump Grinding, standing next to the stump grinder"
+        class="aspect-[4/5] w-full rounded-theme object-cover object-[center_25%]"
+        loading="lazy"
+      />
+      <div>
+        <Eyebrow>About Us</Eyebrow>
+        <h2 class="text-display-md">What we stand for</h2>
+        <div class="mt-[1rem] grid gap-[1rem] text-muted">
+          <p>
+            Hi, neighbor! I'm Alejandro, owner of {site.name}. Thanks for taking a minute to learn a
+            little more about us.
+          </p>
+          <p>
+            I started Andes with a simple goal: provide reliable, straightforward stump grinding
+            without making the process more complicated than it needs to be. We work with
+            homeowners, landscapers, and tree companies throughout Metro Detroit, helping take care
+            of everything from single backyard stumps to ongoing contractor work.
+          </p>
+          <p>
+            I believe good service comes down to the basics: communicate clearly, give honest
+            upfront pricing, show up when you say you will, and treat every property with respect.
+            No pressure, no unnecessary upselling, just professional stump grinding and a clear
+            explanation of what's included before the work begins.
+          </p>
+          <p>
+            Whether it's one stump or several, we bring the same level of care and attention to
+            every job.
+          </p>
         </div>
-        <Image
-          src={missDig}
-          alt="MISS DIG"
-          class="h-20 w-auto shrink-0 justify-self-end"
-          loading="lazy"
+        <CheckList
+          items={[
+            'Locally owned and operated in Ferndale, MI',
+            'Fully insured',
+            'Serving Macomb, Oakland & Wayne counties',
+            'Trusted by local tree services and landscapers',
+          ]}
+          circles
+          top
         />
       </div>
-      <div class="space-y-4 text-lg text-brand-900/75">
-        <p>We are <strong>fully insured</strong> and committed to safety in every project we undertake.</p>
+    </Container>
+  </Section>
+
+  <Section tone="alt" reveal>
+    <Container>
+      <SectionHeading eyebrow="Why Choose Us" title="What sets us apart" />
+      <div class="grid gap-[1.5rem] sm:grid-cols-2 lg:grid-cols-3">
+        {
+          differentiators.map((item) => (
+            <Card media>
+              <CardMedia slot="media">
+                <Image
+                  src={item.image}
+                  alt={item.alt}
+                  class:list={['h-full w-full animate-hero-zoom object-cover', item.crop]}
+                  loading="lazy"
+                />
+              </CardMedia>
+              <h3 class="mb-[0.4rem]">{item.title}</h3>
+              <p class="text-[0.93rem] text-muted">
+                {item.body}
+                {item.link && (
+                  <>
+                    {' ('}
+                    <a
+                      href={item.link.href}
+                      class="font-bold text-brand-900 underline underline-offset-2 hover:text-brand-500"
+                    >
+                      {item.link.label}
+                    </a>
+                    {')'}
+                  </>
+                )}
+              </p>
+            </Card>
+          ))
+        }
+      </div>
+    </Container>
+  </Section>
+
+  <Section reveal id="service-area">
+    <Container class="grid items-center gap-[3rem] lg:grid-cols-2">
+      <div>
+        <Eyebrow>Where We Work</Eyebrow>
+        <h2 class="text-display-md">Service area</h2>
+        <p class="mt-[1rem] text-muted">
+          We're based in {site.location.city} and serve all of Macomb, Oakland, and Wayne counties.
+          Outside that area? Reach out, we can usually make it work for larger projects.
+        </p>
+        <ul
+          class="mt-[1.25rem] grid gap-x-[1.5rem] gap-y-[0.4rem] text-[0.93rem] font-medium sm:grid-cols-2"
+        >
+          {
+            cities.map((city) => (
+              <li>
+                <span aria-hidden="true">📍 </span>
+                {city}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <Card>
+        <h3 class="mb-[0.4rem]">Get in touch</h3>
+        <p class="text-[0.93rem] text-muted">
+          Fastest way to reach us and get a free quote is to text us pictures of the stump you need
+          removed.
+        </p>
+        <ContactList />
+      </Card>
+    </Container>
+  </Section>
+
+  {/* Kept from the existing site: the mockup drops it, but the MISS DIG notice
+      is material safety and liability information. */}
+  <Section tone="alt" reveal>
+    <Container class="mx-auto max-w-[800px]">
+      <div class="mb-[2rem] flex items-center justify-between gap-[1rem]">
+        <h2 class="text-display-sm">Safety &amp; underground utilities</h2>
+        <Image src={missDig} alt="MISS DIG" class="h-20 w-auto shrink-0" loading="lazy" />
+      </div>
+      <div class="grid gap-[1rem] text-muted">
         <p>
-          <strong>Important:</strong> Unless clearly marked, {site.name} cannot be responsible for
-          any underground irrigation or utilities including but not limited to gas, electric, or
-          cable lines. If you think there may be underground utilities, please let us know
-          immediately.
+          We are <strong class="text-brand-900">fully insured</strong> and committed to safety in
+          every project we undertake.
         </p>
         <p>
-          We call <strong>MISS DIG</strong> when necessary to ensure safety. You can also call
-          MISS DIG at
-          <a href="tel:8004827171" class="text-accent hover:text-accent-dark"> (800) 482-7171</a>
+          <strong class="text-brand-900">Important:</strong> Unless clearly marked, {site.name}
+          cannot be responsible for any underground irrigation or utilities including but not
+          limited to gas, electric, or cable lines. If you think there may be underground utilities,
+          please let us know immediately.
+        </p>
+        <p>
+          We call <strong class="text-brand-900">MISS DIG</strong> when necessary to ensure safety.
+          You can also call MISS DIG at
+          <a href="tel:8004827171" class="font-semibold text-brand-900 underline underline-offset-2 hover:text-accent">
+            (800) 482-7171
+          </a>
           or visit
           <a
             href="https://www.missdig811.org/"
-            class="text-accent hover:text-accent-dark"
             target="_blank"
             rel="noopener noreferrer"
+            class="font-semibold text-brand-900 underline underline-offset-2 hover:text-accent"
           >
             missdig811.org
           </a>.
         </p>
       </div>
-    </div>
-  </section>
-
-  <CTABanner
-    title="Ready to get started?"
-    description="Contact us for a free, no-obligation stump grinding estimate."
-    href="/contact"
-  />
+    </Container>
+  </Section>
 </PageLayout>

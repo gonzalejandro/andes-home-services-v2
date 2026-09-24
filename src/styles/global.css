@@ -2,76 +2,115 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Everything in this file is CSS that Tailwind 3 has no utility for. Component
+ * styling lives in the components themselves as utility classes; repeated
+ * layout primitives are Astro components (Container, Section, Button) rather
+ * than @apply classes.
+ */
+
 @layer base {
   html {
+    /* The mockup is authored against a 15px root. Keeping it means every
+       rem-based Tailwind utility matches the designer's rem values exactly. */
+    font-size: 15px;
     scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-white text-brand-900 antialiased;
+    @apply bg-cream font-sans text-ink antialiased;
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display font-semibold text-brand-900;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  /* Tailwind's preflight resets heading sizes to `inherit`, so restore the
+     mockup's default scale. Explicit text-* utilities still override these. */
+  h1 {
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 2.8vw, 2rem);
+  }
+
+  h3 {
+    font-size: 1.05rem;
+  }
+
+  img,
+  video {
+    display: block;
+    max-width: 100%;
   }
 
   a {
     @apply transition-colors;
+    color: inherit;
+    text-decoration: none;
   }
 }
 
-@layer components {
-  .container-page {
-    @apply mx-auto max-w-6xl px-4 sm:px-6;
-  }
-
-  .section-padding {
-    @apply py-16 md:py-20;
-  }
-
-  .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full border-2 border-brand-800 bg-white px-6 py-3 font-semibold text-brand-800 shadow-md transition hover:bg-brand-50 hover:shadow-lg;
-  }
-
-  .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-full border-2 border-brand-800 bg-transparent px-6 py-3 font-semibold text-brand-800 transition hover:bg-brand-800 hover:text-white;
-  }
-
-  .card {
-    @apply rounded-2xl border border-brand-200 bg-white p-6 shadow-sm;
-  }
-
-  .rating-shield-border {
-    padding: 2px;
-    background: #c9a033;
-    clip-path: polygon(50% 0%, 100% 8%, 100% 72%, 50% 100%, 0% 72%, 0% 8%);
-    filter: drop-shadow(0 2px 6px rgb(92 72 16 / 0.22));
-  }
-
-  .rating-shield {
-    min-width: 6rem;
-    padding: 0.7rem 1.35rem 0.5rem;
-    text-align: center;
-    background: linear-gradient(180deg, #fff8e7 0%, #f5e6b8 100%);
-    clip-path: polygon(50% 0%, 100% 8%, 100% 72%, 50% 100%, 0% 72%, 0% 8%);
-  }
-
-  .rating-score {
-    color: #5c4812;
-  }
-
-  .stars-row {
-    margin-bottom: 0.35rem;
-  }
+/* ---------------------------------------------------------------------------
+   Soft mesh gradient (home "Areas we service" + FAQ sections)
+   Four stacked radial gradients on a blurred pseudo-element, plus an edge fade
+   that blends into the neighbouring sections. Expressible as arbitrary
+   utilities only as a ~400-character unreadable string, so it stays CSS.
+   --------------------------------------------------------------------------- */
+.mesh-bg {
+  position: relative;
+  /* `clip` not `hidden`: hidden would make this a scroll container. */
+  overflow: clip;
 }
 
-/* Reveal-on-scroll: opacity/transform only (no layout shift), gated behind a
-   root class so titles stay visible if JS is disabled, and disabled entirely
-   for users who prefer reduced motion. */
+.mesh-bg::before {
+  content: '';
+  position: absolute;
+  inset: -25%;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 14% 22% at 28% 64%, rgb(21 54 43 / 0.35) 0%, transparent 100%),
+    radial-gradient(ellipse 24% 36% at 30% 62%, rgb(143 186 179 / 0.9) 0%, transparent 100%),
+    radial-gradient(ellipse 28% 40% at 70% 36%, #c3c8d6 0%, transparent 100%),
+    theme('colors.cream');
+  filter: blur(80px);
+}
+
+/* Fade top and bottom into the neighbouring sections so there is no seam. */
+.mesh-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    theme('colors.cream') 0%,
+    transparent 35%,
+    transparent 60%,
+    theme('colors.cream') 100%
+  );
+}
+
+/* ---------------------------------------------------------------------------
+   Reveal-on-scroll
+   Driven by the IntersectionObserver in BaseLayout (works in every browser,
+   unlike the mockup's Chrome-only `animation-timeline: view()`). Opacity and
+   transform only, so nothing reflows. Gated behind a root class so content
+   stays visible with JS disabled, and skipped for reduced-motion users.
+   --------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) {
   .reveal-ready .reveal {
     opacity: 0;
     transform: translateY(16px);
     transition:
       opacity 0.6s ease-out,
-      transform 0.6s ease-out,
-      color 0.2s ease-out;
+      transform 0.6s ease-out;
     will-change: opacity, transform;
   }
 

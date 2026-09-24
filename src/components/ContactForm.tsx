@@ -38,7 +38,8 @@ const initialForm = {
   website: '',
 };
 
-export default function ContactForm() {
+/** `onDark` drops the border, as the mockup does on the dark home section. */
+export default function ContactForm({ onDark = false }: { onDark?: boolean }) {
   const [form, setForm] = useState(initialForm);
   const [state, setState] = useState<FormState>('idle');
   const [errorMessage, setErrorMessage] = useState('');
@@ -135,14 +136,14 @@ export default function ContactForm() {
 
   if (state === 'success') {
     return (
-      <div className="card border-green-200 bg-green-50 text-green-900">
-        <h3 className="text-xl font-bold">Request received</h3>
+      <div className="grid gap-[0.5rem] rounded-theme border border-hairline bg-white p-[1.75rem]">
+        <h3 className="text-[1.15rem]">Request received</h3>
         <p className="mt-2">
           Thanks for reaching out! One of our team members will get back to you shortly.
         </p>
         <button
           type="button"
-          className="btn-primary mt-4"
+          className="mt-[0.5rem] justify-self-start rounded-full border-[0.5px] border-brand-900 bg-brand-900 px-[1.2rem] py-[0.6rem] text-[0.85rem] font-medium uppercase tracking-[0.06em] text-white transition-colors duration-200 hover:bg-brand-800"
           onClick={() => setState('idle')}
         >
           Submit another request
@@ -152,9 +153,11 @@ export default function ContactForm() {
   }
 
   return (
-    <form className="card space-y-4" onSubmit={handleSubmit}>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block text-sm font-medium text-brand-800">
+    <form className={`grid gap-[1rem] rounded-theme bg-white p-[1.75rem]${
+        onDark ? '' : ' border border-hairline'
+      }`} onSubmit={handleSubmit}>
+      <div className="grid gap-[1rem] sm:grid-cols-2">
+        <label className="grid gap-[0.3rem] text-[0.85rem] font-semibold text-brand-900">
           First name *
           <input
             required
@@ -162,10 +165,10 @@ export default function ContactForm() {
             name="firstName"
             value={form.firstName}
             onChange={(e) => updateField('firstName', e.target.value)}
-            className="mt-1 w-full rounded-lg border border-brand-200 px-3 py-2"
+            className="w-full rounded-[6px] border border-hairline bg-cream px-[0.85rem] py-[0.65rem] text-[0.93rem] focus:border-brand-500 focus:outline focus:outline-2 focus:outline-offset-1 focus:outline-brand-500"
           />
         </label>
-        <label className="block text-sm font-medium text-brand-800">
+        <label className="grid gap-[0.3rem] text-[0.85rem] font-semibold text-brand-900">
           Last name *
           <input
             required
@@ -173,13 +176,13 @@ export default function ContactForm() {
             name="lastName"
             value={form.lastName}
             onChange={(e) => updateField('lastName', e.target.value)}
-            className="mt-1 w-full rounded-lg border border-brand-200 px-3 py-2"
+            className="w-full rounded-[6px] border border-hairline bg-cream px-[0.85rem] py-[0.65rem] text-[0.93rem] focus:border-brand-500 focus:outline focus:outline-2 focus:outline-offset-1 focus:outline-brand-500"
           />
         </label>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block text-sm font-medium text-brand-800">
+      <div className="grid gap-[1rem] sm:grid-cols-2">
+        <label className="grid gap-[0.3rem] text-[0.85rem] font-semibold text-brand-900">
           Email *
           <input
             required
@@ -187,10 +190,10 @@ export default function ContactForm() {
             name="email"
             value={form.email}
             onChange={(e) => updateField('email', e.target.value)}
-            className="mt-1 w-full rounded-lg border border-brand-200 px-3 py-2"
+            className="w-full rounded-[6px] border border-hairline bg-cream px-[0.85rem] py-[0.65rem] text-[0.93rem] focus:border-brand-500 focus:outline focus:outline-2 focus:outline-offset-1 focus:outline-brand-500"
           />
         </label>
-        <label className="block text-sm font-medium text-brand-800">
+        <label className="grid gap-[0.3rem] text-[0.85rem] font-semibold text-brand-900">
           Phone *
           <input
             required
@@ -198,12 +201,12 @@ export default function ContactForm() {
             name="phone"
             value={form.phone}
             onChange={(e) => updateField('phone', e.target.value)}
-            className="mt-1 w-full rounded-lg border border-brand-200 px-3 py-2"
+            className="w-full rounded-[6px] border border-hairline bg-cream px-[0.85rem] py-[0.65rem] text-[0.93rem] focus:border-brand-500 focus:outline focus:outline-2 focus:outline-offset-1 focus:outline-brand-500"
           />
         </label>
       </div>
 
-      <label className="block text-sm font-medium text-brand-800">
+      <label className="grid gap-[0.3rem] text-[0.85rem] font-semibold text-brand-900">
         Street address *
         <input
           required
@@ -211,12 +214,12 @@ export default function ContactForm() {
           name="address"
           value={form.address}
           onChange={(e) => updateField('address', e.target.value)}
-          className="mt-1 w-full rounded-lg border border-brand-200 px-3 py-2"
+          className="w-full rounded-[6px] border border-hairline bg-cream px-[0.85rem] py-[0.65rem] text-[0.93rem] focus:border-brand-500 focus:outline focus:outline-2 focus:outline-offset-1 focus:outline-brand-500"
         />
       </label>
 
-      <div className="grid gap-4 sm:grid-cols-3">
-        <label className="block text-sm font-medium text-brand-800">
+      <div className="grid gap-[1rem] sm:grid-cols-3">
+        <label className="grid gap-[0.3rem] text-[0.85rem] font-semibold text-brand-900">
           City *
           <input
             required
@@ -224,10 +227,10 @@ export default function ContactForm() {
             name="city"
             value={form.city}
             onChange={(e) => updateField('city', e.target.value)}
-            className="mt-1 w-full rounded-lg border border-brand-200 px-3 py-2"
+            className="w-full rounded-[6px] border border-hairline bg-cream px-[0.85rem] py-[0.65rem] text-[0.93rem] focus:border-brand-500 focus:outline focus:outline-2 focus:outline-offset-1 focus:outline-brand-500"
           />
         </label>
-        <label className="block text-sm font-medium text-brand-800">
+        <label className="grid gap-[0.3rem] text-[0.85rem] font-semibold text-brand-900">
           State *
           <input
             required
@@ -235,10 +238,10 @@ export default function ContactForm() {
             name="state"
             value={form.state}
             onChange={(e) => updateField('state', e.target.value)}
-            className="mt-1 w-full rounded-lg border border-brand-200 px-3 py-2"
+            className="w-full rounded-[6px] border border-hairline bg-cream px-[0.85rem] py-[0.65rem] text-[0.93rem] focus:border-brand-500 focus:outline focus:outline-2 focus:outline-offset-1 focus:outline-brand-500"
           />
         </label>
-        <label className="block text-sm font-medium text-brand-800">
+        <label className="grid gap-[0.3rem] text-[0.85rem] font-semibold text-brand-900">
           ZIP *
           <input
             required
@@ -246,12 +249,12 @@ export default function ContactForm() {
             name="postalCode"
             value={form.postalCode}
             onChange={(e) => updateField('postalCode', e.target.value)}
-            className="mt-1 w-full rounded-lg border border-brand-200 px-3 py-2"
+            className="w-full rounded-[6px] border border-hairline bg-cream px-[0.85rem] py-[0.65rem] text-[0.93rem] focus:border-brand-500 focus:outline focus:outline-2 focus:outline-offset-1 focus:outline-brand-500"
           />
         </label>
       </div>
 
-      <label className="block text-sm font-medium text-brand-800">
+      <label className="grid gap-[0.3rem] text-[0.85rem] font-semibold text-brand-900">
         Tell us about your project *
         <textarea
           required
@@ -259,7 +262,7 @@ export default function ContactForm() {
           rows={5}
           value={form.message}
           onChange={(e) => updateField('message', e.target.value)}
-          className="mt-1 w-full rounded-lg border border-brand-200 px-3 py-2"
+          className="w-full rounded-[6px] border border-hairline bg-cream px-[0.85rem] py-[0.65rem] text-[0.93rem] focus:border-brand-500 focus:outline focus:outline-2 focus:outline-offset-1 focus:outline-brand-500"
           placeholder="Number of stumps, access notes, preferred timing, etc."
         />
       </label>
@@ -279,14 +282,18 @@ export default function ContactForm() {
       {TURNSTILE_SITE_KEY && <div ref={widgetRef} className="min-h-[65px]" />}
 
       {state === 'error' && (
-        <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700" role="alert">
+        <p className="rounded-[6px] bg-red-50 px-[0.85rem] py-[0.65rem] text-[0.85rem] text-red-700" role="alert">
           {errorMessage}
         </p>
       )}
 
-      <button type="submit" className="btn-primary w-full sm:w-auto" disabled={state === 'submitting'}>
+      <button type="submit" className="block w-full rounded-full border-[0.5px] border-accent bg-accent px-[1.6rem] py-[0.8rem] text-center font-display text-[1.05rem] font-semibold text-white transition-colors duration-200 hover:border-brand-900 hover:bg-brand-900 disabled:cursor-not-allowed disabled:opacity-60" disabled={state === 'submitting'}>
         {state === 'submitting' ? 'Sending…' : 'Request Free Estimate'}
       </button>
+
+      <p className="text-center text-[0.8rem] text-muted">
+        We'll get back to you within one business day.
+      </p>
     </form>
   );
 }

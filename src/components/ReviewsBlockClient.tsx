@@ -75,7 +75,7 @@ export function ReviewsBlockClient({
 
   if (data.reviews.length === 0) {
     return (
-      <p className="text-center text-brand-900/75">
+      <p className="text-center text-muted">
         No reviews yet. They will appear here after the first successful refresh.
       </p>
     );
@@ -87,13 +87,13 @@ export function ReviewsBlockClient({
         <div
           ref={headingRef}
           data-reveal-self
-          className={`reveal mb-10 text-center${revealed ? ' is-visible' : ''}`}
+          className={`reveal mb-[2.5rem] text-center${revealed ? ' is-visible' : ''}`}
         >
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
-            <h2 className="text-3xl font-bold text-brand-800 md:text-4xl">Google Reviews</h2>
+          <div className="flex flex-wrap items-center justify-center gap-x-[2rem] gap-y-[1.5rem]">
+            <h2 className="text-display-md">Google Reviews</h2>
             {data.rating !== null && <ReviewsRatingBadge rating={data.rating} />}
           </div>
-          {subtitle && <p className="mx-auto mt-3 max-w-3xl text-lg text-brand-900/75">{subtitle}</p>}
+          {subtitle && <p className="mx-auto mt-[0.75rem] max-w-[48rem] text-[1.1rem] text-muted">{subtitle}</p>}
         </div>
       )}
 

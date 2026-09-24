@@ -1,0 +1,49 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import heroDefault from '../assets/hero.webp';
+import Container from './Container.astro';
+import Eyebrow from './Eyebrow.astro';
+
+interface Props {
+  title: string;
+  eyebrow?: string;
+  description?: string;
+  image?: ImageMetadata;
+  /** `side` is the About page's left-to-right fade. */
+  overlay?: 'top' | 'side';
+  /** Tailwind object-position class for the banner crop. */
+  focus?: string;
+}
+
+const {
+  title,
+  eyebrow,
+  description,
+  image = heroDefault,
+  overlay = 'top',
+  focus = 'object-[center_40%]',
+} = Astro.props;
+
+const overlays = {
+  top: 'bg-[linear-gradient(180deg,rgb(21_54_43/0.8)_0%,rgb(21_54_43/0.7)_100%)]',
+  side: 'bg-[linear-gradient(90deg,rgb(21_54_43/0.9)_0%,rgb(21_54_43/0.65)_45%,rgb(21_54_43/0.35)_100%)]',
+};
+---
+
+<section class="relative overflow-hidden bg-brand-900 pb-[3rem] pt-[11rem] text-white sm:pb-[3.5rem] sm:pt-[8.5rem]">
+  <Image
+    src={image}
+    alt=""
+    class:list={['absolute inset-0 h-full w-full object-cover', focus]}
+    loading="eager"
+    fetchpriority="high"
+  />
+  <div class:list={['absolute inset-0 z-[1]', overlays[overlay]]}></div>
+
+  <Container class="relative z-[2]">
+    {eyebrow && <Eyebrow tone="banner">{eyebrow}</Eyebrow>}
+    <h1 class="mb-[0.5rem] text-white">{title}</h1>
+    {description && <p class="max-w-[55ch] opacity-90">{description}</p>}
+  </Container>
+</section>
