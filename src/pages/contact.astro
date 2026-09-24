@@ -15,7 +15,9 @@ import { site } from '../config/site';
 >
   <Section pageTop reveal>
     <Container class="grid items-center gap-[3rem] lg:grid-cols-[1fr_1.2fr]">
-      <div>
+      {/* Same upward nudge as the home page's quote section: the form is tall
+          enough that true centering sits too low. */}
+      <div class="lg:mb-[6rem]">
         <h1 class="text-display-xl">Let's work together</h1>
         <ContactList />
       </div>
