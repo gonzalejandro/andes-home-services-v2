@@ -3,7 +3,6 @@ import PageLayout from '../layouts/PageLayout.astro';
 import Container from '../components/Container.astro';
 import Section from '../components/Section.astro';
 import ReviewsBlock from '../components/ReviewsBlock.astro';
-import CTABanner from '../components/CTABanner.astro';
 import { site } from '../config/site';
 ---
 
@@ -19,10 +18,4 @@ import { site } from '../config/site';
       <ReviewsBlock showHeading={false} />
     </Container>
   </Section>
-
-  <CTABanner
-    title="Ready to join our happy customers?"
-    description="Request a free estimate today — no obligation."
-    href="/contact"
-  />
 </PageLayout>

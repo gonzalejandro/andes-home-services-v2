@@ -9,6 +9,8 @@ export const services = [
     clipAlt: 'Stump grinder cutting a tree stump down below grade',
     panel: 'cream' as const,
     cropTop: true,
+    // Services-page crop (see `crops` in pages/services/index.astro)
+    crop: 'upper' as const,
     title: 'Stump Grinding',
     shortDescription:
       'Professional stump removal to keep your property clean and safe. Fully insured.',
@@ -30,6 +32,7 @@ export const services = [
     clip: 'grinding6',
     clipAlt: 'Grinder clearing bush stumps and surface roots',
     panel: 'accent' as const,
+    crop: 'low' as const,
     title: 'Bush Stumps/Roots Grinding',
     shortDescription:
       'Grinding for tree stumps, bush stumps, and surface roots. Fast, safe, and fully insured.',
@@ -51,6 +54,7 @@ export const services = [
     clip: 'cleanup2',
     clipAlt: 'Crew hauling away grinding chips and tidying the work area',
     panel: 'mint' as const,
+    crop: 'lowest' as const,
     title: 'Chip Removal',
     shortDescription:
       'Wood chip cleanup after stump grinding so your yard is neat and ready to use.',
@@ -91,7 +95,7 @@ export const capabilities = [
       'Multiple stumps for developers, HOAs, and landscapers. Volume pricing available for 5+ stumps per visit.',
     clip: 'cleanup1',
     clipAlt: 'Crew member clearing grindings with a blower on a tree-lined street',
-    crop: 'low' as const,
+    crop: 'lowest' as const,
   },
   {
     emoji: '🌱',
@@ -100,7 +104,7 @@ export const capabilities = [
       'Surface roots lifting your sidewalk or driveway? We trace and grind them out so they stop causing damage.',
     clip: 'grinding3',
     clipAlt: 'Grinding out roots close to a stone house wall',
-    crop: 'low' as const,
+    crop: 'lowest' as const,
   },
   {
     emoji: '🧹',
@@ -118,7 +122,7 @@ export const capabilities = [
       'Our compact grinder fits through a 36" gate. Fenced backyards, side yards, and slopes are no problem.',
     clip: 'clip2',
     clipAlt: 'Compact stump grinder driving through a narrow side yard',
-    crop: 'top' as const,
+    crop: 'lower' as const,
   },
   {
     emoji: '⚡',
@@ -145,7 +149,8 @@ export const processSteps = [
   {
     title: 'We schedule MISS DIG',
     description:
-      'We require MISS DIG to come out and mark any utility that might get in the way before grinding. This service is completely free of charge, booked by us and takes up to 3 business days.',
+      "We book MISS DIG, Michigan's free utility-marking service, to flag underground lines before grinding. It takes up to 3 business days.",
+    link: { text: 'MISS DIG', href: '/about#miss-dig' },
   },
   {
     title: 'We perform the grinding',

@@ -34,10 +34,12 @@ const panels = {
   {
     cards.map((card) => (
       <div
-        class="group relative min-h-[420px] w-full overflow-hidden rounded-theme bg-brand-900 lg:aspect-square lg:min-h-0 lg:w-auto lg:flex-1 lg:transition-[flex] lg:duration-700 lg:ease-swoop lg:hover:flex-[1.7_1.7_0%]"
+        class="group relative min-h-[420px] w-full overflow-hidden rounded-theme lg:aspect-square lg:min-h-0 lg:w-auto lg:flex-1 lg:transition-[flex] lg:duration-700 lg:ease-swoop lg:hover:flex-[1.7_1.7_0%]"
       >
-        {/* Overscans by 1px so the card's dark background can't show through as
-            a hairline seam when flex gives the card a fractional width. */}
+        {/* Overscans by 1px so nothing behind the video can show through as a
+            hairline seam when flex gives the card a fractional width. The card
+            has no background of its own: a dark one still leaked in as a line
+            on the right edge. */}
         <video
           src={`/videos/${card.clip}.mp4`}
           poster={`/videos/${card.clip}.webp`}

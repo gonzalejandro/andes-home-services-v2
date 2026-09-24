@@ -25,10 +25,10 @@ const value = ['text-[1.05rem] font-semibold', dark ? 'text-white' : 'text-brand
   </li>
   <li class="grid gap-[0.45rem]">
     <strong class={label}>Send your pictures through text</strong>
-    <a href={`tel:${site.phoneTel}`} class:list={[...value, 'hover:underline']}>{site.phone}</a>
+    <a href={`tel:${site.phoneTel}`} class:list={[...value, 'justify-self-start hover:underline']}>{site.phone}</a>
   </li>
   <li class="grid gap-[0.45rem]">
     <strong class={label}>Send your pictures through email</strong>
-    <a href={`mailto:${site.email}`} class:list={[...value, 'hover:underline']}>{site.email}</a>
+    <a href={`mailto:${site.email}`} class:list={[...value, 'justify-self-start hover:underline']}>{site.email}</a>
   </li>
 </ul>

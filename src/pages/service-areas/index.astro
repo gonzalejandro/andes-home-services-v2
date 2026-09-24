@@ -5,7 +5,6 @@ import Section from '../../components/Section.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import CountyCard from '../../components/CountyCard.astro';
 import AreasCard from '../../components/AreasCard.astro';
-import CTABanner from '../../components/CTABanner.astro';
 import { serviceAreas } from '../../data/serviceAreas';
 import { site } from '../../config/site';
 ---
@@ -47,10 +46,4 @@ import { site } from '../../config/site';
       </p>
     </Container>
   </Section>
-
-  <CTABanner
-    title="Not sure if we serve your area?"
-    description="Reach out with your address and we'll confirm availability."
-    href="/contact"
-  />
 </PageLayout>

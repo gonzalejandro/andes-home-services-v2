@@ -4,7 +4,6 @@ import Container from '../../components/Container.astro';
 import Section from '../../components/Section.astro';
 import Card from '../../components/Card.astro';
 import CheckList from '../../components/CheckList.astro';
-import CTABanner from '../../components/CTABanner.astro';
 import { serviceAreas } from '../../data/serviceAreas';
 import { site } from '../../config/site';
 
@@ -38,10 +37,4 @@ const { area } = Astro.props;
       </p>
     </Container>
   </Section>
-
-  <CTABanner
-    title={`Request service in ${area.name}`}
-    description="Free estimates with no obligation."
-    href="/contact"
-  />
 </PageLayout>

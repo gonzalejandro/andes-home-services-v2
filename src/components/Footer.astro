@@ -10,9 +10,12 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="bg-brand-900 text-[0.9rem] text-white/80">
-  {/* Sides take their natural width; the CTA is absolutely centred on the page. */}
+  {/* Equal 1fr side tracks keep the CTA exactly on the page's centre line,
+      whatever the widths of the logo and nav columns.
+      Top padding is smaller than the bottom because the logo PNG carries its own
+      transparent headroom, so the visible gaps come out about even. */}
   <Container
-    class="relative flex flex-col items-center gap-[3rem] py-[4rem] text-center lg:flex-row lg:items-stretch lg:justify-between lg:text-left"
+    class="relative flex flex-col items-center gap-[2.5rem] pb-[3rem] pt-[2.25rem] text-center lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-stretch lg:text-left"
   >
     <div class="flex flex-col items-center gap-[0.5rem] lg:items-start">
       {/* Sized so the mark spans the row of social icons below it; the negative
@@ -25,9 +28,7 @@ const year = new Date().getFullYear();
       <SocialLinks />
     </div>
 
-    <div
-      class="px-[1rem] text-center lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2"
-    >
+    <div class="px-[1rem] text-center lg:self-center">
       <h2 class="mb-[0.75rem] text-display-md text-white">Ready to lose that stump?</h2>
       <p class="mx-auto mb-[1.5rem] text-[0.85rem] opacity-85 lg:whitespace-nowrap">
         Call, text, send us photos of your problem and we'll get right back to you.
@@ -36,9 +37,12 @@ const year = new Date().getFullYear();
     </div>
 
     <div
-      class="-mb-[10px] flex flex-col items-center gap-[2rem] pt-[10px] lg:items-end lg:justify-between"
+      class="-mb-[10px] flex flex-col items-center gap-[1.25rem] pt-[10px] lg:relative lg:items-end lg:justify-self-end"
     >
-      <nav class="flex flex-col items-center gap-[0.45rem] lg:items-end" aria-label="Footer navigation">
+      <nav
+        class="flex flex-col items-center gap-[0.2rem] text-[0.8rem] leading-[1.35] lg:items-end"
+        aria-label="Footer navigation"
+      >
         {
           footerNavLinks.map((link) => (
             <a href={link.href} class="transition-colors hover:text-white">
@@ -47,7 +51,11 @@ const year = new Date().getFullYear();
           ))
         }
       </nav>
-      <div class="text-center text-[0.72rem] lg:whitespace-nowrap lg:text-right">
+      {/* Out of flow on desktop so its long line can extend left past the
+          narrow nav column. */}
+      <div
+        class="text-center text-[0.65rem] text-white/80 lg:absolute lg:bottom-0 lg:right-0 lg:whitespace-nowrap lg:text-right"
+      >
         <p>
           &copy; {year} {site.name} &middot; {site.location.city}, {site.location.region} &middot;
           {site.phone}

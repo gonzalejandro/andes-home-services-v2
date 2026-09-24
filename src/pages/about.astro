@@ -34,8 +34,9 @@ const differentiators = [
     alt: 'Alejandro standing next to the stump grinder',
     crop: 'object-[center_38%]',
     title: 'Free estimates',
-    body: 'Text us some pictures and measurements, no need to schedule an in-person estimate or wait around.',
+    body: 'Text us some pictures and measurements',
     link: { href: '/services#how-to-measure', label: 'check how to measure' },
+    bodyAfterLink: ', no need to schedule an in-person estimate or wait around.',
   },
   {
     image: affordable,
@@ -128,19 +129,14 @@ const differentiators = [
               </CardMedia>
               <h3 class="mb-[0.4rem]">{item.title}</h3>
               <p class="text-[0.93rem] text-muted">
-                {item.body}
-                {item.link && (
-                  <>
-                    {' ('}
-                    <a
+                {/* Pieces kept on one line: line breaks between them render as stray spaces
+                    inside the parentheses and before the comma. */}
+                {item.body}{item.link && (
+                  <> (<a
                       href={item.link.href}
                       class="font-bold text-brand-900 underline underline-offset-2 hover:text-brand-500"
-                    >
-                      {item.link.label}
-                    </a>
-                    {')'}
-                  </>
-                )}
+                    >{item.link.label}</a>)</>
+                )}{item.bodyAfterLink}
               </p>
             </Card>
           ))
@@ -184,9 +180,9 @@ const differentiators = [
 
   {/* Kept from the existing site: the mockup drops it, but the MISS DIG notice
       is material safety and liability information. */}
-  <Section tone="alt" reveal>
+  <Section tone="alt" reveal id="miss-dig">
     <Container class="mx-auto max-w-[800px]">
-      <div class="mb-[2rem] flex items-center justify-between gap-[1rem]">
+      <div class="mb-[1rem] flex items-center justify-between gap-[1rem]">
         <h2 class="text-display-sm">Safety &amp; underground utilities</h2>
         <Image src={missDig} alt="MISS DIG" class="h-20 w-auto shrink-0" loading="lazy" />
       </div>
@@ -202,7 +198,19 @@ const differentiators = [
           please let us know immediately.
         </p>
         <p>
-          We call <strong class="text-brand-900">MISS DIG</strong> when necessary to ensure safety.
+          Before we grind, we contact <strong class="text-brand-900">MISS DIG</strong>, Michigan's
+          utility notification system. They find the public gas, electric, water, and communication
+          lines near your stump and flag them. We handle the booking at no cost to you, and the
+          process usually takes up to 3 business days. Our crew comes out once the flags are in
+          place, so we know exactly where it's safe to grind.
+        </p>
+        <p>
+          Keep in mind that MISS DIG only marks lines owned by utility companies. Private lines such
+          as sprinkler systems, invisible dog fences, landscape lighting, or wiring to a shed or
+          detached garage won't be marked, so please flag them or point them out to us before we
+          start.
+        </p>
+        <p>
           You can also call MISS DIG at
           <a href="tel:8004827171" class="font-semibold text-brand-900 underline underline-offset-2 hover:text-accent">
             (800) 482-7171
@@ -213,9 +221,7 @@ const differentiators = [
             target="_blank"
             rel="noopener noreferrer"
             class="font-semibold text-brand-900 underline underline-offset-2 hover:text-accent"
-          >
-            missdig811.org
-          </a>.
+          >missdig811.org</a>.
         </p>
       </div>
     </Container>

@@ -6,7 +6,6 @@ import Section from '../components/Section.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import Card from '../components/Card.astro';
 import CardMedia from '../components/CardMedia.astro';
-import CTABanner from '../components/CTABanner.astro';
 import { galleryImages } from '../data/gallery';
 import { getInstagramFeedWithRefresh } from '../lib/instagram-cache';
 import { getVideos } from '../lib/instagram';
@@ -91,10 +90,4 @@ const instagramVideos = getVideos(await getInstagramFeedWithRefresh());
       </Section>
     )
   }
-
-  <CTABanner
-    title="Want results like this on your property?"
-    description="Send us a few details and we'll provide a free estimate."
-    href="/contact"
-  />
 </PageLayout>

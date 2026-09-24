@@ -16,8 +16,11 @@ import { site } from '../../config/site';
 
 const crops = {
   top: 'object-top',
+  upper: 'object-[center_30%]',
   high: 'object-[center_38%]',
   low: 'object-[center_62%]',
+  lower: 'object-[center_80%]',
+  lowest: 'object-[center_90%]',
 };
 ---
 
@@ -78,10 +81,7 @@ const crops = {
                 <video
                   src={`/videos/${service.clip}.mp4`}
                   poster={`/videos/${service.clip}.webp`}
-                  class:list={[
-                    'h-full w-full object-cover',
-                    'cropTop' in service && service.cropTop && 'object-top',
-                  ]}
+                  class:list={['h-full w-full object-cover', crops[service.crop]]}
                   autoplay
                   muted
                   loop

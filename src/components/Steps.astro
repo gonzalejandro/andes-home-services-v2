@@ -1,10 +1,20 @@
 ---
 interface Props {
-  steps: readonly { title: string; description: string }[];
+  steps: readonly {
+    title: string;
+    description: string;
+    // Turns the first occurrence of `text` in the description into a link.
+    link?: { text: string; href: string };
+  }[];
   class?: string;
 }
 
 const { steps, class: className } = Astro.props;
+
+function splitOnLink(description: string, text: string) {
+  const at = description.indexOf(text);
+  return at === -1 ? null : [description.slice(0, at), description.slice(at + text.length)];
+}
 
 // Five across on desktop needs slightly smaller text and a wider gap.
 const five = steps.length === 5;
@@ -18,7 +28,9 @@ const five = steps.length === 5;
   ]}
 >
   {
-    steps.map((step, index) => (
+    steps.map((step, index) => {
+      const parts = step.link && splitOnLink(step.description, step.link.text);
+      return (
       <li class="text-center">
         <span
           class="mb-[0.9rem] inline-grid h-[48px] w-[48px] place-items-center rounded-full bg-brand-900 text-[1.2rem] font-bold text-white"
@@ -28,9 +40,17 @@ const five = steps.length === 5;
         </span>
         <h3 class:list={['mb-[0.4rem]', five && 'text-[1rem]']}>{step.title}</h3>
         <p class:list={['text-muted', five ? 'text-[0.88rem] leading-[1.55]' : 'text-[0.93rem]']}>
-          {step.description}
+          {step.link && parts ? (
+            <>
+              {/* Kept on one line: Astro renders the line breaks between these as spaces. */}
+              {parts[0]}<a href={step.link.href} class="font-semibold text-brand-900 underline underline-offset-2 hover:text-accent">{step.link.text}</a>{parts[1]}
+            </>
+          ) : (
+            step.description
+          )}
         </p>
       </li>
-    ))
+      );
+    })
   }
 </ol>

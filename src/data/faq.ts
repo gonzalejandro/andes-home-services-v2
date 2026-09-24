@@ -15,7 +15,7 @@ export const faqSections: FaqSection[] = [
       {
         question: 'How do I get a quote?',
         answer:
-          'Just fill out the contact form on our website or give us a call. You can also text us photos of your stumps — that helps us give you a faster, more accurate estimate. For larger or more complex jobs, we may schedule a quick site visit.',
+          'Just fill out the contact form on our website or give us a call. You can also text us photos of your stumps. That helps us give you a faster, more accurate estimate. For larger or more complex jobs, we may schedule a quick site visit.',
       },
       {
         question: 'How much does stump grinding cost?',
@@ -40,17 +40,17 @@ export const faqSections: FaqSection[] = [
       {
         question: 'How long does stump grinding take?',
         answer:
-          'Most stumps can be ground down in just a couple of hours, depending on the size. Small stumps may take 30 minutes to an hour, while larger stumps can take 2-3 hours.',
+          'Most stumps can be ground down in just a couple of hours, depending on the size. Small stumps may take 30 minutes to an hour, while larger stumps can take 2 to 3 hours.',
       },
       {
         question: 'Will stump grinding damage my lawn?',
         answer:
-          'We do our best to minimize any impact to your yard. There will be some disturbance in the immediate area around the stump, but we clean up the work site when we are done. The area can be filled in and reseeded or sodded right away. We also offer ground protection mats to help protect your lawn and driveway along the path to the stump — an additional fee applies.',
+          'We do our best to minimize any impact to your yard. There will be some disturbance in the immediate area around the stump, but we clean up the work site when we are done. The area can be filled in and reseeded or sodded right away. We also offer ground protection mats to help protect your lawn and driveway along the path to the stump. An additional fee applies.',
       },
       {
         question: 'How loud is the equipment?',
         answer:
-          'Stump grinders are loud — similar to a chainsaw or large lawnmower. We recommend letting your neighbors know ahead of time. We work during normal business hours to minimize any disruption.',
+          'Stump grinders are loud, similar to a chainsaw or large lawnmower. We recommend letting your neighbors know ahead of time. We work during normal business hours to minimize any disruption.',
       },
       {
         question: 'Do you need water or power on-site?',
@@ -65,12 +65,12 @@ export const faqSections: FaqSection[] = [
       {
         question: 'How deep do you grind?',
         answer:
-          'We typically grind 6-12 inches below ground level, which is sufficient for most purposes. Our equipment can go up to 15 inches deep for projects like fence posts or foundation prep.',
+          'We typically grind 6 to 12 inches below ground level, which is sufficient for most purposes. Our equipment can go up to 15 inches deep for projects like fence posts or foundation prep.',
       },
       {
         question: 'Can you grind stumps near structures or utilities?',
         answer:
-          'Yes, we can work carefully around structures, fences, and other obstacles. We also call MISS DIG when necessary to locate underground utilities for safety. If you know of any underground utilities, please let us know in advance.',
+          'Yes, we can work carefully around structures, fences, and other obstacles. We call MISS DIG before our jobs to locate underground utilities for safety. If you know of any underground utilities, please let us know in advance.',
       },
       {
         question: 'Can your equipment fit through a gate?',
@@ -120,7 +120,7 @@ export const faqSections: FaqSection[] = [
       {
         question: 'What happens if it rains on the day of my appointment?',
         answer:
-          'We may need to reschedule to avoid damaging your lawn on wet ground. If the job is time-sensitive and cannot wait, we can still get it done using ground protection mats — an additional fee applies. Otherwise, we will work with you to reschedule as soon as conditions allow.',
+          'We may need to reschedule to avoid damaging your lawn on wet ground. If the job is time-sensitive and cannot wait, we can still get it done using ground protection mats. An additional fee applies. Otherwise, we will work with you to reschedule as soon as conditions allow.',
       },
       {
         question: 'Are you insured?',
@@ -130,7 +130,7 @@ export const faqSections: FaqSection[] = [
       {
         question: 'What areas do you serve?',
         answer:
-          "We serve Macomb, Oakland, and Wayne counties. We're based in Ferndale and cover the Metro Detroit area and surrounding communities. We can also travel beyond our standard service area — a travel fee may apply to cover fuel and time.",
+          "We serve Macomb, Oakland, and Wayne counties. We're based in Ferndale and cover the Metro Detroit area and surrounding communities. We can also travel beyond our standard service area. A travel fee may apply to cover fuel and time.",
       },
     ],
   },

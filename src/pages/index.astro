@@ -84,7 +84,9 @@ const carouselImages = [
 
   <Section tone="dark" reveal id="get-quote">
     <Container class="grid items-center gap-[3rem] lg:grid-cols-[1fr_1.2fr]">
-      <div>
+      {/* Still centered, but the bottom margin nudges it up by half its
+          height: the form is tall enough that true centering sat too low. */}
+      <div class="lg:mb-[6rem]">
         <h2 class="text-display-xl text-white">Let's work together</h2>
         <ContactList tone="dark" />
       </div>
